@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowDown, Mail, Phone, MapPin, Github } from 'lucide-react'
+import Image from 'next/image'
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -19,16 +20,20 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="space-y-8"
-        >
-          {/* Profile Image */}
+        >          {/* Profile Image */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
             className="w-48 h-48 mx-auto mb-8"
           >
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-6xl font-bold shadow-2xl">
-              MA
+            <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800">              <Image
+                src="/images/adil.jpg"
+                alt="Mohammed Adil Siraju"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </motion.div>
 
