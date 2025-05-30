@@ -161,7 +161,7 @@ const Hero = () => {
                   : "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
               }}
             >              <Image
-                src="/images/placeholder.svg"
+                src="/images/adil.jpg"
                 alt="Mohammed Adil Siraju"
                 fill
                 className="object-cover"
