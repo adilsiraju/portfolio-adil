@@ -82,11 +82,10 @@ const StoryHero = () => {
 
     updateWindowSize()
     window.addEventListener('resize', updateWindowSize)
-    return () => window.removeEventListener('resize', updateWindowSize)
-  }, [])
+    return () => window.removeEventListener('resize', updateWindowSize)  }, [])
 
   useEffect(() => {
-    // Auto-advance story after 4 seconds, then show continue button
+    // Auto-advance story after 4 seconds, but keep same background color throughout all steps
     timeoutRef.current = setTimeout(() => {
       if (currentStep < storySteps.length - 1) {
         setCurrentStep(prev => prev + 1)
@@ -108,14 +107,12 @@ const StoryHero = () => {
       setIsCompleted(true)
     }
   }
-
   const handleEnterPortfolio = () => {
-    const projectsSection = document.querySelector('#journey')
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' })
+    const aboutSection = document.querySelector('#magical-about')
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
-
   if (isCompleted) {
     return (
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">        <div className="absolute inset-0">          {/* Animated background particles */}
@@ -202,11 +199,12 @@ const StoryHero = () => {
       </section>
     )
   }
-
+  // Get current story step
   const currentStoryStep = storySteps[currentStep]
 
+  // Initial welcome screen with all 4 story steps (same background color throughout)
   return (
-    <section className={`min-h-screen flex items-center justify-center relative overflow-hidden transition-all duration-1000 ${currentStoryStep.backgroundClass}`}>
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden transition-all duration-1000 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Animated background elements */}      <div className="absolute inset-0">        {isClient && floatingParticles.map((particle, i) => (
           <motion.div
             key={i}

@@ -85,7 +85,7 @@ const MagicalAbout = () => {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
   return (
-    <section ref={containerRef} className="min-h-screen py-20 px-6 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-purple-950 to-pink-950">
+    <section id="magical-about" ref={containerRef} className="min-h-screen py-20 px-6 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-purple-950 to-pink-950">
       {/* Magical background effects */}
       <motion.div 
         style={{ y: backgroundY }}

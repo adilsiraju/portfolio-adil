@@ -1,5 +1,4 @@
 import StoryHero from '@/components/StoryHero'
-import JourneySection from '@/components/JourneySection'
 import MagicalAbout from '@/components/MagicalAbout'
 import Experience from '@/components/Experience'
 import Education from '@/components/Education'
@@ -14,7 +13,6 @@ export default function Home() {
       <div className="min-h-screen bg-black">
         <main className="relative">
           <StoryHero />
-          <JourneySection />
           <MagicalAbout />
           <Experience />
           <Education />
