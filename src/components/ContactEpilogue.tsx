@@ -10,23 +10,31 @@ import {
   Linkedin, 
   MapPin,
   Calendar,
-  Sparkles
+  Sparkles,
+  CheckCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import toast from 'react-hot-toast'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 const ContactEpilogue = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isClient, setIsClient] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
+  const { trackEvent, trackSectionView, trackContactFormSubmit, trackSocialLinkClick } = useAnalytics()
 
   useEffect(() => {
     setIsClient(true)
+    // Track section view
+    trackSectionView('contact')
+    
     // Generate random positions after client mount to avoid hydration mismatch
     const positions = Array.from({ length: 30 }, () => ({
       x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
@@ -35,8 +43,7 @@ const ContactEpilogue = () => {
       delay: Math.random() * 3
     }))
     setParticlePositions(positions)
-  }, [])
-
+  }, [trackSectionView])
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -50])
 
@@ -44,15 +51,60 @@ const ContactEpilogue = () => {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Reset form
-    setFormData({ name: '', email: '', message: '' })
-    setIsSubmitting(false)
-    
-    // Show success message (you can implement toast here)
-    console.log('Message sent!', formData)
+    try {
+      // Track form submission attempt
+      await trackContactFormSubmit()
+      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        
+        // Track successful submission
+        await trackEvent('contact_form_success', { 
+          name: formData.name,
+          email: formData.email 
+        })
+        
+        toast.success('Message sent successfully! I\'ll get back to you soon.', {
+          duration: 5000,
+          style: {
+            background: '#1e293b',
+            color: '#ffffff',
+            border: '1px solid #8b5cf6'
+          }
+        })
+      } else {
+        throw new Error(result.error || 'Failed to send message')
+      }
+    } catch (error) {
+      console.error('Error sending message:', error)
+      
+      // Track failed submission
+      await trackEvent('contact_form_error', { 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      })
+      
+      toast.error('Failed to send message. Please try again or contact me directly.', {
+        duration: 5000,
+        style: {
+          background: '#1e293b',
+          color: '#ffffff',
+          border: '1px solid #ef4444'
+        }
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   const socialLinks = [
     {
@@ -133,15 +185,40 @@ const ContactEpilogue = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Contact form */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">          {/* Contact form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center p-8 rounded-2xl bg-green-500/10 border border-green-500/30"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="w-16 h-16 mx-auto mb-4 bg-green-500/20 rounded-full flex items-center justify-center"
+                >
+                  <CheckCircle className="w-8 h-8 text-green-400" />
+                </motion.div>
+                <h3 className="text-2xl font-semibold text-white mb-2">Message Sent!</h3>
+                <p className="text-gray-300 mb-4">
+                  Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+                </p>
+                <Button
+                  onClick={() => setIsSubmitted(false)}
+                  className="bg-purple-600 hover:bg-purple-500 text-white"
+                >
+                  Send Another Message
+                </Button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Your Name
@@ -199,9 +276,9 @@ const ContactEpilogue = () => {
                     Send Message
                     <Send className="w-4 h-4" />
                   </span>
-                )}
-              </Button>
+                )}              </Button>
             </form>
+            )}
           </motion.div>
 
           {/* Contact info and social links */}
@@ -250,8 +327,7 @@ const ContactEpilogue = () => {
               <h3 className="text-xl font-semibold text-white mb-4">
                 Connect Across Platforms
               </h3>
-              
-              <div className="space-y-3">
+                <div className="space-y-3">
                 {socialLinks.map((link) => (
                   <motion.a
                     key={link.name}
@@ -261,6 +337,7 @@ const ContactEpilogue = () => {
                     className={`flex items-center gap-3 text-gray-300 ${link.color} transition-colors group`}
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 400 }}
+                    onClick={() => trackSocialLinkClick(link.name, link.url)}
                   >
                     <span className="p-2 rounded-lg bg-white/10 group-hover:bg-white/20 transition-colors">
                       {link.icon}

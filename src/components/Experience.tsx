@@ -13,6 +13,7 @@ import {
   Cpu,
   Globe
 } from 'lucide-react'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 interface Experience {
   id: string
@@ -72,8 +73,13 @@ const Experience = () => {
   const [isClient, setIsClient] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
 
+  const { trackSectionView, trackEvent } = useAnalytics()
+
   useEffect(() => {
     setIsClient(true)
+    // Track section view
+    trackSectionView('experience')
+    
     // Generate random positions for background particles
     const positions = Array.from({ length: 20 }, () => ({
       x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
@@ -82,7 +88,7 @@ const Experience = () => {
       delay: Math.random() * 4
     }))
     setParticlePositions(positions)
-  }, [])
+  }, [trackSectionView])
 
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -50])

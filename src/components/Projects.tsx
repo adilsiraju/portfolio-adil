@@ -17,6 +17,7 @@ import {
   Droplets,
   Wind
 } from 'lucide-react'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 interface Project {
   id: string
@@ -94,8 +95,13 @@ const Projects = () => {
   const [isClient, setIsClient] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
 
+  const { trackSectionView, trackProjectClick, trackEvent } = useAnalytics()
+
   useEffect(() => {
     setIsClient(true)
+    // Track section view
+    trackSectionView('projects')
+    
     // Generate random positions for background particles
     const positions = Array.from({ length: 30 }, () => ({
       x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
@@ -104,7 +110,7 @@ const Projects = () => {
       delay: Math.random() * 6
     }))
     setParticlePositions(positions)
-  }, [])
+  }, [trackSectionView])
 
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -40])
@@ -194,11 +200,13 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {projectCategories.map((category) => (
+        >          {projectCategories.map((category) => (
             <button
               key={category}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => {
+                setSelectedCategory(category)
+                trackEvent('project_category_filter', { category })
+              }}
               className={`px-6 py-3 rounded-full transition-all duration-300 ${
                 selectedCategory === category
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -309,11 +317,15 @@ const Projects = () => {
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-white mb-2">Impact</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">{project.impact}</p>
-                </div>
-
-                {/* Expand/Collapse button */}
+                </div>                {/* Expand/Collapse button */}
                 <motion.button
-                  onClick={() => setSelectedProject(selectedProject === project.id ? null : project.id)}
+                  onClick={() => {
+                    const isExpanding = selectedProject !== project.id
+                    setSelectedProject(selectedProject === project.id ? null : project.id)
+                    if (isExpanding) {
+                      trackProjectClick(project.title)
+                    }
+                  }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className={`w-full py-3 rounded-xl bg-gradient-to-r ${project.color} text-white font-semibold hover:shadow-lg transition-all duration-300`}

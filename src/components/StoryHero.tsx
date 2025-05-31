@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Mouse, Sparkles, Code2, Brain, Zap } from 'lucide-react'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 interface StoryStep {
   id: string
@@ -54,6 +55,13 @@ const StoryHero = () => {
   const [floatingParticles, setFloatingParticles] = useState<Array<{x: number, y: number, delay: number, repeatDelay: number}>>([])
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+  const { trackEvent, trackSectionView } = useAnalytics()
+
+  // Track hero view on component mount
+  useEffect(() => {
+    trackSectionView('hero')
+  }, [trackSectionView])
+
   // Safe window size hook
   useEffect(() => {
     setIsClient(true)
@@ -98,16 +106,23 @@ const StoryHero = () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
   }, [currentStep])
-
   const handleContinue = () => {
     if (currentStep < storySteps.length - 1) {
       setCurrentStep(prev => prev + 1)
       setShowContinue(false)
+      // Track story progression
+      trackEvent('story_step_progress', { 
+        step: currentStep + 1, 
+        stepName: storySteps[currentStep + 1]?.id 
+      })
     } else {
       setIsCompleted(true)
+      trackEvent('story_completed')
     }
   }
+
   const handleEnterPortfolio = () => {
+    trackEvent('portfolio_entry_click')
     const aboutSection = document.querySelector('#magical-about')
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' })
