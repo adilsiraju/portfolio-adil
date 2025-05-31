@@ -11,7 +11,7 @@ interface ContactData {
 interface AnalyticsData {
   timestamp: string
   event: string
-  data?: Record<string, any>
+  data?: Record<string, unknown>
 }
 
 export async function GET(request: NextRequest) {

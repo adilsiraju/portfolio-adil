@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import { 
   BarChart3, 
   Mail, 
-  Users, 
   Activity,
   RefreshCw,
   Eye,
@@ -27,7 +26,7 @@ interface AnalyticsData {
     id: string
     timestamp: string
     event: string
-    data?: Record<string, any>
+    data?: Record<string, unknown>
   }>
   totalEvents: number
 }
@@ -112,7 +111,7 @@ const AdminDashboard = () => {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id as 'overview' | 'contacts' | 'analytics')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                 activeTab === tab.id
                   ? 'bg-purple-600 text-white'

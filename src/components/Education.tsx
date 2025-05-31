@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { 
   GraduationCap, 
   Award, 
-  BookOpen, 
   Globe,
   Calendar,
   MapPin,
@@ -13,8 +12,7 @@ import {
   Code,
   Database,
   Brain,
-  Shield,
-  Cpu
+  Shield
 } from 'lucide-react'
 
 interface Education {

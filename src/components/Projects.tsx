@@ -6,16 +6,9 @@ import {
   Rocket, 
   ExternalLink, 
   Github, 
-  Code, 
   Leaf,
   Lock,
-  Database,
-  Globe,
-  Zap,
-  Shield,
-  BarChart3,
-  Droplets,
-  Wind
+  Zap
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 

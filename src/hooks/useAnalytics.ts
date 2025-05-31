@@ -2,13 +2,8 @@
 
 import { useCallback } from 'react'
 
-interface AnalyticsEvent {
-  event: string
-  data?: Record<string, any>
-}
-
 export const useAnalytics = () => {
-  const trackEvent = useCallback(async (event: string, data?: Record<string, any>) => {
+  const trackEvent = useCallback(async (event: string, data?: Record<string, unknown>) => {
     try {
       await fetch('/api/analytics', {
         method: 'POST',

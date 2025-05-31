@@ -7,7 +7,6 @@ import {
   MessageCircle, 
   Send, 
   Github, 
-  Linkedin, 
   MapPin,
   Calendar,
   Sparkles,

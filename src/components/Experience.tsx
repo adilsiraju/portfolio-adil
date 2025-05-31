@@ -6,10 +6,6 @@ import {
   Briefcase, 
   Calendar, 
   MapPin, 
-  Code, 
-  Database,
-  Cloud,
-  GitBranch,
   Cpu,
   Globe
 } from 'lucide-react'
@@ -69,11 +65,10 @@ const experiences: Experience[] = [
 ]
 
 const Experience = () => {
-  const [selectedExperience, setSelectedExperience] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
 
-  const { trackSectionView, trackEvent } = useAnalytics()
+  const { trackSectionView } = useAnalytics()
 
   useEffect(() => {
     setIsClient(true)
