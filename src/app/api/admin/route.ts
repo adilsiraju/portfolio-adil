@@ -1,33 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
-
-interface ContactData {
-  timestamp: string
-  name: string
-  email: string
-  message: string
-}
-
-interface AnalyticsData {
-  timestamp: string
-  event: string
-  data?: Record<string, unknown>
-}
+import { redisClient } from '@/lib/redis'
 
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url)
     const type = url.searchParams.get('type') || 'all'
-
-    if (type === 'contacts') {
-      // Get all contact submissions
-      const contactKeys = await kv.keys('contact:*')
+      if (type === 'contacts') {
+      // Get contact submissions from the list
+      const submissionIds = await redisClient.lRange('contact:submissions', 0, -1) // All submissions
       const contacts = await Promise.all(
-        contactKeys.map(async (key) => {
-          const data = await kv.get(key) as ContactData
+        submissionIds.map(async (id: string) => {
+          const data = await redisClient.hGetAll(`contact:${id}`) as Record<string, string>
           return {
-            id: key,
-            ...data
+            id,
+            timestamp: data.timestamp || '',
+            name: data.name || '',
+            email: data.email || '',
+            message: data.message || ''
           }
         })
       )
@@ -40,46 +29,32 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === 'analytics') {
-      // Get analytics summary
-      const analyticsKeys = await kv.keys('analytics:*')
-      const analytics = await Promise.all(
-        analyticsKeys.map(async (key) => {
-          const data = await kv.get(key) as AnalyticsData
-          return {
-            id: key,
-            ...data
-          }
-        })
-      )
+      // Get analytics summary from counters
+      const pageViews = await redisClient.get('analytics:page_view:total') || 0
+      const projectClicks = await redisClient.get('analytics:project_click:total') || 0
+      const sectionViews = await redisClient.get('analytics:section_view:total') || 0
+      const contactClicks = await redisClient.get('analytics:contact_click:total') || 0
 
-      // Group analytics by event type
-      const eventCounts = analytics.reduce((acc: Record<string, number>, event: AnalyticsData) => {
-        const eventType = event.event
-        acc[eventType] = (acc[eventType] || 0) + 1
-        return acc
-      }, {})
+      const eventCounts = {
+        'page_view': Number(pageViews),
+        'project_click': Number(projectClicks),
+        'section_view': Number(sectionViews),
+        'contact_click': Number(contactClicks)
+      }
 
-      // Recent analytics events (last 50)
-      const recentEvents = analytics
-        .sort((a: AnalyticsData, b: AnalyticsData) => 
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        )
-        .slice(0, 50)
+      const totalEvents = Object.values(eventCounts).reduce((sum, count) => sum + count, 0)
 
       return NextResponse.json({ 
         eventCounts,
-        recentEvents,
-        totalEvents: analytics.length
+        recentEvents: [], // We'll implement this if needed
+        totalEvents
       })
-    }
-
-    // Get summary of both
-    const contactKeys = await kv.keys('contact:*')
-    const analyticsKeys = await kv.keys('analytics:*')
+    }    // Get summary of both
+    const totalSubmissions = await redisClient.get('stats:total_submissions') || 0
     
     return NextResponse.json({
-      totalContacts: contactKeys.length,
-      totalAnalyticsEvents: analyticsKeys.length,
+      totalContacts: Number(totalSubmissions),
+      totalAnalyticsEvents: 0, // Will be calculated from counters
       lastUpdated: new Date().toISOString()
     })
 
@@ -91,3 +66,4 @@ export async function GET(request: NextRequest) {
     )
   }
 }
+

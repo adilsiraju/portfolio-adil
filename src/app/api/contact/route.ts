@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
+import { redisClient } from '@/lib/redis'
 
 interface ContactFormData {
   name: string
@@ -37,9 +37,8 @@ export async function POST(request: NextRequest) {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       message: message.trim(),
-      timestamp: new Date().toISOString()
-    }    // Store in Vercel KV
-    await kv.hset(`contact:${submission.id}`, {
+      timestamp: new Date().toISOString()    }    // Store in Redis
+    await redisClient.hSet(`contact:${submission.id}`, {
       id: submission.id,
       name: submission.name,
       email: submission.email,
@@ -48,10 +47,10 @@ export async function POST(request: NextRequest) {
     })
     
     // Add to submissions list for easy retrieval
-    await kv.lpush('contact:submissions', submission.id)
+    await redisClient.lPush('contact:submissions', submission.id)
     
     // Increment total submissions counter
-    await kv.incr('stats:total_submissions')
+    await redisClient.incr('stats:total_submissions')
 
     console.log('Contact form submission saved:', submission.id)
 
@@ -74,19 +73,18 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  try {
-    // Get recent submissions (for admin use)
-    const submissionIds = await kv.lrange('contact:submissions', 0, 9) // Last 10
+  try {    // Get recent submissions (for admin use)
+    const submissionIds = await redisClient.lRange('contact:submissions', 0, 9) // Last 10
     const submissions = []
 
     for (const id of submissionIds) {
-      const submission = await kv.hgetall(`contact:${id}`)
+      const submission = await redisClient.hGetAll(`contact:${id}`)
       if (submission) {
         submissions.push(submission)
       }
     }
 
-    const totalSubmissions = await kv.get('stats:total_submissions') || 0
+    const totalSubmissions = await redisClient.get('stats:total_submissions') || 0
 
     return NextResponse.json({
       submissions,
