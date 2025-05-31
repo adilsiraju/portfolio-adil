@@ -210,8 +210,8 @@ const MagicalAbout = () => {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
               viewport={{ once: true }}
-            >              A passionate explorer of the digital frontier, where artificial intelligence meets human creativity. 
-              Currently crafting the future of AI while pursuing my Master&apos;s degree and building solutions that matter.
+            >              A passionate explorer of the digital frontier—where artificial intelligence meets human creativity.
+            I’m currently building impactful AI-driven solutions that blend innovation with real-world value.
             </motion.p>
           </motion.div>
         </motion.div>
@@ -286,7 +286,7 @@ const MagicalAbout = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <span>🎓 M.Tech in AI/ML</span>
+            <span>🎓 B.Tech in AI & ML</span>
             <span>🚀 Startup Founder</span>
             <span>💡 Research Enthusiast</span>
             <span>🌟 Innovation Catalyst</span>
