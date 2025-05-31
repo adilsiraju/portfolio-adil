@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { 
   Sparkles, 
@@ -162,18 +163,38 @@ const MagicalAbout = () => {
             className="relative inline-block"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
-          >
-            {/* Avatar */}
+          >            {/* Avatar */}
             <div className="w-40 h-40 mx-auto mb-6 relative">
               <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-400 to-pink-400 p-1">
                 <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center relative overflow-hidden">
-                  {/* Placeholder for actual photo */}
+                  {/* Profile Image */}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="/images/adil.jpg" // You can replace this with your image path
+                      alt="Mohammed Adil Siraju"
+                      fill
+                      className="object-cover rounded-full"
+                      sizes="(max-width: 768px) 160px, 160px"
+                      priority
+                      onError={(e) => {
+                        // Fallback to icon if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const fallback = target.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback icon */}
+                    <div className="absolute inset-0 flex items-center justify-center" style={{ display: 'none' }}>
+                      <Brain className="w-16 h-16 text-purple-300 z-10" />
+                    </div>
+                  </div>
+                  {/* Animated gradient overlay */}
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20"
+                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full"
                   />
-                  <Brain className="w-16 h-16 text-purple-300 z-10" />
                 </div>
               </div>
               
