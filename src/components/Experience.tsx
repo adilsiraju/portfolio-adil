@@ -1,214 +1,267 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Calendar, MapPin, Building2 } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { 
+  Briefcase, 
+  Calendar, 
+  MapPin, 
+  Code, 
+  Database,
+  Cloud,
+  GitBranch,
+  Cpu,
+  Globe
+} from 'lucide-react'
+
+interface Experience {
+  id: string
+  title: string
+  company: string
+  duration: string
+  location: string
+  type: string
+  description: string
+  achievements: string[]
+  technologies: string[]
+  icon: React.ReactNode
+  color: string
+}
+
+const experiences: Experience[] = [
+  {
+    id: 'accenture',
+    title: 'Software Developer',
+    company: 'Accenture UK',
+    duration: 'Mar 2025',
+    location: 'Remote',
+    type: 'Virtual Internship',
+    description: 'Gained comprehensive exposure to the full Software Development Lifecycle in a global tech consulting environment.',
+    achievements: [
+      'Researched and presented key findings on emerging DevOps trends',
+      'Conducted comparative analysis of Agile and Waterfall methodologies',
+      'Designed efficient algorithms for complex problem-solving scenarios',
+      'Successfully debugged and resolved Python application issues'
+    ],
+    technologies: ['Python', 'DevOps', 'Agile', 'Algorithm Design'],
+    icon: <Globe className="w-6 h-6" />,
+    color: 'from-blue-500 to-cyan-500'
+  },
+  {
+    id: 'rooman',
+    title: 'AI DevOps Intern',
+    company: 'Rooman Technology x NASSCOM',
+    duration: 'Sep 2024 - Feb 2025',
+    location: 'Mangalore',
+    type: 'On-site Internship',
+    description: 'Specialized in implementing DevOps practices for AI model development and deployment in real-world scenarios.',
+    achievements: [
+      'Implemented CI/CD pipelines for automated ML model deployment',
+      'Mastered containerization and orchestration for AI applications',
+      'Collaborated in team environments simulating production workflows',
+      'Gained expertise in version control and automated testing for ML'
+    ],
+    technologies: ['Docker', 'Kubernetes', 'Jenkins', 'Git', 'CI/CD', 'ML Ops'],
+    icon: <Cpu className="w-6 h-6" />,
+    color: 'from-purple-500 to-pink-500'
+  }
+]
 
 const Experience = () => {
-  const experiences = [
-    {
-      id: 1,
-      title: 'Software Developer Intern',
-      company: 'Accenture UK',
-      location: 'Remote',
-      period: 'March 2025',
-      type: 'Virtual Internship',
-      description: 'Currently participating in a virtual software development internship focusing on modern web technologies and enterprise-level application development.',
-      achievements: [
-        'Working on full-stack web development projects',
-        'Learning enterprise software development practices',
-        'Collaborating with international development teams',
-        'Gaining experience in agile development methodologies'
-      ],
-      tech: ['React', 'Node.js', 'TypeScript', 'Cloud Computing'],
-      color: 'from-purple-500 to-indigo-600'
-    },
-    {
-      id: 2,
-      title: 'AI DevOps Intern',
-      company: 'Rooman Technology x NASSCOM',
-      location: 'Remote',
-      period: 'September 2024 – February 2025',
-      type: 'Virtual Internship',
-      description: 'Specialized in AI/ML operations and deployment pipelines, focusing on containerization, CI/CD, and scalable ML infrastructure.',
-      achievements: [
-        'Developed automated ML model deployment pipelines using Docker and Kubernetes',
-        'Implemented CI/CD workflows for machine learning projects',
-        'Created monitoring and logging systems for AI applications',
-        'Optimized model serving infrastructure for better performance',
-        'Collaborated on cloud-native AI solutions using AWS and Azure'
-      ],
-      tech: ['Docker', 'Kubernetes', 'Jenkins', 'MLflow', 'AWS', 'Python'],
-      color: 'from-blue-500 to-cyan-600'
-    }
-  ]
+  const [selectedExperience, setSelectedExperience] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false)
+  const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
-    }
-  }
+  useEffect(() => {
+    setIsClient(true)
+    // Generate random positions for background particles
+    const positions = Array.from({ length: 20 }, () => ({
+      x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+      y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 4
+    }))
+    setParticlePositions(positions)
+  }, [])
 
-  const cardVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6
-      }
-    }
-  }
+  const { scrollYProgress } = useScroll()
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -50])
 
   return (
-    <section id="experience" className="py-20 bg-white dark:bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen py-20 px-6 relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950">
+      {/* Background effects */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0"
+      >
+        {/* Floating particles */}
+        {isClient && particlePositions.map((particle, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
+            initial={{ 
+              x: particle.x, 
+              y: particle.y,
+              opacity: 0
+            }}
+            animate={{
+              y: [particle.y, particle.y - 300],
+              opacity: [0, 0.6, 0],
+              scale: [0, 1, 0]
+            }}
+            transition={{
+              duration: particle.duration,
+              delay: particle.delay,
+              repeat: Infinity,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+        
+        {/* Gradient overlays */}
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+      </motion.div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Professional Experience
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full text-blue-300 text-sm font-medium mb-6"
+          >
+            <Briefcase className="w-4 h-4" />
+            Professional Journey
+          </motion.div>
+          
+          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-6">
+            Work Experience
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            My professional journey includes virtual internships and hands-on experience 
-            in AI/ML development and DevOps practices.
+          
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            From virtual internships at global tech giants to hands-on DevOps experience, 
+            each role has shaped my understanding of AI and software development.
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          className="space-y-8"
-        >
+        {/* Experience timeline */}
+        <div className="space-y-12">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.id}
-              variants={cardVariants}
-              className={`relative ${index % 2 === 0 ? 'lg:ml-0' : 'lg:ml-12'}`}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
             >
-              {/* Timeline Line */}
-              <div className="hidden lg:block absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
-              
-              {/* Timeline Dot */}
-              <div className="hidden lg:block absolute left-4 top-8 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-slate-900"></div>
+              <div className={`flex flex-col lg:flex-row gap-8 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                {/* Content card */}
+                <div className="flex-1">
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -10 }}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300"
+                  >
+                    {/* Company header */}
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className={`p-3 rounded-xl bg-gradient-to-r ${exp.color} shadow-lg`}>
+                        {exp.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-white mb-2">{exp.title}</h3>
+                        <p className="text-xl text-blue-300 font-semibold mb-2">{exp.company}</p>
+                        <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {exp.duration}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            {exp.location}
+                          </div>
+                          <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+                            {exp.type}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
-              <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-6 lg:ml-16 shadow-lg">
-                {/* Header */}
-                <div className={`h-24 bg-gradient-to-r ${exp.color} rounded-lg mb-6 relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  <div className="relative h-full flex items-center justify-between p-6">
+                    {/* Description */}
+                    <p className="text-gray-300 mb-6 leading-relaxed">{exp.description}</p>
+
+                    {/* Achievements */}
+                    <div className="mb-6">
+                      <h4 className="text-lg font-semibold text-white mb-3">Key Achievements</h4>
+                      <ul className="space-y-2">
+                        {exp.achievements.map((achievement, i) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-300">
+                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Technologies */}
                     <div>
-                      <h3 className="text-xl font-bold text-white">
-                        {exp.title}
-                      </h3>
-                      <p className="text-white/80 text-sm">
-                        {exp.type}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="flex items-center text-white/90 text-sm mb-1">
-                        <Building2 size={16} className="mr-1" />
-                        {exp.company}
-                      </div>
-                      <div className="flex items-center text-white/80 text-xs">
-                        <MapPin size={14} className="mr-1" />
-                        {exp.location}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid lg:grid-cols-3 gap-6">
-                  {/* Period */}
-                  <div className="lg:col-span-1">
-                    <div className="flex items-center text-blue-600 dark:text-blue-400 mb-4">
-                      <Calendar size={20} className="mr-2" />
-                      <span className="font-semibold">{exp.period}</span>
-                    </div>
-                    
-                    {/* Tech Stack */}
-                    <div className="space-y-2">
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
-                        Technologies:
-                      </h4>
+                      <h4 className="text-lg font-semibold text-white mb-3">Technologies & Tools</h4>
                       <div className="flex flex-wrap gap-2">
-                        {exp.tech.map((tech, techIndex) => (
+                        {exp.technologies.map((tech, i) => (
                           <span
-                            key={techIndex}
-                            className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-md font-medium"
+                            key={i}
+                            className="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 rounded-full text-sm border border-purple-500/30"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </div>
-
-                  {/* Description & Achievements */}
-                  <div className="lg:col-span-2 space-y-4">
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {exp.description}
-                    </p>
-
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
-                        Key Achievements:
-                      </h4>
-                      <ul className="space-y-2">
-                        {exp.achievements.map((achievement, achievementIndex) => (
-                          <motion.li
-                            key={achievementIndex}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: achievementIndex * 0.1 }}
-                            className="flex items-start text-gray-600 dark:text-gray-300"
-                          >
-                            <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                            <span>{achievement}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                  </motion.div>
                 </div>
+
+                {/* Timeline connector */}
+                <div className="flex lg:flex-col items-center lg:w-8">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-3 h-3 bg-white rounded-full" />
+                  </div>
+                  {index < experiences.length - 1 && (
+                    <div className="w-px h-20 lg:h-32 bg-gradient-to-b from-blue-500/50 to-transparent" />
+                  )}
+                </div>
+
+                {/* Spacer for alternating layout */}
+                <div className="flex-1 hidden lg:block" />
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Additional Info */}
+        {/* Call to action */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-16 text-center"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
         >
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Ready for New Opportunities
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              I'm actively seeking full-time opportunities in AI/ML Engineering, 
-              Software Development, and DevOps roles where I can contribute my skills 
-              and continue growing as a professional.
-            </p>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="mailto:mohdadilsiraju@gmail.com"
-              className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Let's Connect
-            </motion.a>
-          </div>
+          <p className="text-xl text-gray-300 mb-8">
+            Ready to add more exciting chapters to this journey?
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg transition-all duration-300"
+          >
+            Let&apos;s Connect
+          </motion.button>
         </motion.div>
       </div>
     </section>

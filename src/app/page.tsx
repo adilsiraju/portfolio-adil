@@ -1,27 +1,28 @@
-import Hero from '@/components/Hero'
-import About from '@/components/About'
-import Projects from '@/components/Projects'
+import StoryHero from '@/components/StoryHero'
+import JourneySection from '@/components/JourneySection'
+import MagicalAbout from '@/components/MagicalAbout'
 import Experience from '@/components/Experience'
 import Education from '@/components/Education'
-import Certifications from '@/components/Certifications'
-import Contact from '@/components/Contact'
+import Projects from '@/components/Projects'
+import ContactEpilogue from '@/components/ContactEpilogue'
 import Footer from '@/components/Footer'
-import Navigation from '@/components/Navigation'
+import ToastProvider from '@/components/ToastProvider'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Education />
-        <Certifications />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <ToastProvider>
+      <div className="min-h-screen bg-black">
+        <main className="relative">
+          <StoryHero />
+          <JourneySection />
+          <MagicalAbout />
+          <Experience />
+          <Education />
+          <Projects />
+          <ContactEpilogue />
+        </main>
+        <Footer />
+      </div>
+    </ToastProvider>
   );
 }
