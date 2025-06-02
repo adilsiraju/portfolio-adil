@@ -24,7 +24,7 @@ const storySteps: StoryStep[] = [
     icon: <Sparkles className="w-8 h-8 text-yellow-400" />
   },  {
     id: 'identity',
-    title: "Meet the Architect",
+    title: "Meet the Engineer",
     subtitle: "Mohammed Adil Siraju",
     description: "Aspiring AI & ML Engineer with expertise in Python, DevOps, and sustainable innovation.",
     backgroundClass: "bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900",
