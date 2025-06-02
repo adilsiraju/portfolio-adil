@@ -77,7 +77,7 @@ const projects: Project[] = [
     color: 'from-purple-500 to-violet-600',
     backgroundGradient: 'from-purple-900/20 to-violet-900/20',
     demoUrl: '',
-    githubUrl: ''
+    githubUrl: 'https://github.com/adilsiraju/Simple-Password-Manager'
   },
   {
     id: 'personal-finance-tracker',
