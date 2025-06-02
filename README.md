@@ -4,7 +4,7 @@ A modern, responsive portfolio website for Mohammed Adil Siraju, showcasing his 
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [https://adilsiraju.github.io](https://adilsiraju.github.io)
+Visit the live portfolio: [https://adilsiraju.vercel.app](https://adilsiraju.vercel.app)
 
 ## ✨ Features
 
