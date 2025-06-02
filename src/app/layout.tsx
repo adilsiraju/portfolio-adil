@@ -25,11 +25,20 @@ export const metadata: Metadata = {
     url: "https://adilsiraju.github.io",
     siteName: "Mohammed Adil Siraju Portfolio",
     type: "website",
+    images: [
+      {
+        url: "/images/adil.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mohammed Adil Siraju - AI & ML Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mohammed Adil Siraju | AI & ML Engineer",
     description: "AI & ML Engineering graduate building sustainable tech solutions using Python, ML, and DevOps pipelines.",
+    images: ["/images/adil.jpg"],
   },
   robots: {
     index: true,
