@@ -187,14 +187,7 @@ const MagicalAbout = () => {
                     {/* Fallback icon */}
                     <div className="absolute inset-0 flex items-center justify-center" style={{ display: 'none' }}>
                       <Brain className="w-16 h-16 text-purple-300 z-10" />
-                    </div>
-                  </div>
-                  {/* Animated gradient overlay */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full"
-                  />
+                    </div>                  </div>
                 </div>
               </div>
               
