@@ -19,6 +19,16 @@ export const metadata: Metadata = {
   keywords: ["AI Engineer", "Machine Learning", "Python Developer", "DevOps", "AI ML Graduate", "Sustainable Technology"],
   authors: [{ name: "Mohammed Adil Siraju" }],
   creator: "Mohammed Adil Siraju",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Mohammed Adil Siraju | AI & ML Engineer",
     description: "AI & ML Engineering graduate building sustainable tech solutions using Python, ML, and DevOps pipelines.",
