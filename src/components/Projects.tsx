@@ -8,7 +8,8 @@ import {
   Github, 
   Leaf,
   Lock,
-  Zap
+  Zap,
+  Calculator
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
@@ -77,10 +78,35 @@ const projects: Project[] = [
     backgroundGradient: 'from-purple-900/20 to-violet-900/20',
     demoUrl: '',
     githubUrl: ''
+  },
+  {
+    id: 'personal-finance-tracker',
+    title: 'Personal Finance Tracker',
+    description: 'A simple and intuitive command-line tool for tracking personal income and expenses, built with Python and CSV storage.',
+    longDescription: 'Personal Finance Tracker is a Python-based CLI application that empowers users to manage their finances by recording transactions, viewing transaction history, and generating financial summaries within custom date ranges. It offers robust input validation and stores all data locally in a CSV file for portability and privacy. Designed for individuals who prefer lightweight, terminal-based finance management.',
+    technologies: ['Python', 'pandas', 'CSV', 'CLI'],
+    features: [
+      'Add income and expense transactions with date, amount, category, and description',
+      'Default or custom date support for fast entry',
+      'View filtered transaction history within any date range',
+      'Generate financial summaries: total income, expenses, and net savings',
+      'CSV file storage for easy data access and portability',
+      'Robust validation for dates, amounts, and categories',
+      'Simple, menu-driven command-line interface'
+    ],
+    impact: 'Helps individuals gain financial awareness and control by providing an easy way to track, review, and summarize their personal finances without complex software or cloud dependencies.',
+    status: 'Completed',
+    category: 'Productivity',
+    icon: <Calculator className="w-8 h-8" />, // Replace with your icon component/library
+    color: 'from-green-500 to-teal-600',
+    backgroundGradient: 'from-green-900/20 to-teal-900/20',
+    demoUrl: '', // No live demo, as it is a CLI tool
+    githubUrl: 'https://github.com/adilsiraju/PersonalFinanceTracker'
   }
+  
 ]
 
-const projectCategories = ['All', 'Sustainability', 'Security', 'AI/ML', 'Web Development']
+const projectCategories = ['All', 'Sustainability', 'Security', 'AI/ML', 'Web Development', 'Productivity']
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
