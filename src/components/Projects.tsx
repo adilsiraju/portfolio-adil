@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useSwipeable } from 'react-swipeable'
 import { 
   Rocket, 
   ExternalLink, 
@@ -11,9 +10,7 @@ import {
   Lock,
   Zap,
   Calculator,
-  Building,
-  ChevronLeft,
-  ChevronRight
+  Building
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 import { useReducedMotion, useReducedData } from '@/hooks/useAccessibility'
@@ -142,57 +139,10 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0)
 
   const { trackSectionView, trackProjectClick, trackEvent } = useAnalytics()
   const prefersReducedMotion = useReducedMotion()
   const prefersReducedData = useReducedData()
-
-  // Mobile swipe navigation functions
-  const nextCategory = () => {
-    const currentIndex = projectCategories.indexOf(selectedCategory)
-    const nextIndex = (currentIndex + 1) % projectCategories.length
-    setSelectedCategory(projectCategories[nextIndex])
-    trackEvent('category_swipe', { direction: 'next', category: projectCategories[nextIndex] })
-  }
-
-  const prevCategory = () => {
-    const currentIndex = projectCategories.indexOf(selectedCategory)
-    const prevIndex = currentIndex === 0 ? projectCategories.length - 1 : currentIndex - 1
-    setSelectedCategory(projectCategories[prevIndex])
-    trackEvent('category_swipe', { direction: 'prev', category: projectCategories[prevIndex] })
-  }
-
-  const nextProject = () => {
-    const filteredProjectsList = selectedCategory === 'All' ? projects : projects.filter(p => p.category === selectedCategory)
-    const nextIndex = (currentProjectIndex + 1) % filteredProjectsList.length
-    setCurrentProjectIndex(nextIndex)
-    trackEvent('project_swipe', { direction: 'next', project: filteredProjectsList[nextIndex].id })
-  }
-
-  const prevProject = () => {
-    const filteredProjectsList = selectedCategory === 'All' ? projects : projects.filter(p => p.category === selectedCategory)
-    const prevIndex = currentProjectIndex === 0 ? filteredProjectsList.length - 1 : currentProjectIndex - 1
-    setCurrentProjectIndex(prevIndex)
-    trackEvent('project_swipe', { direction: 'prev', project: filteredProjectsList[prevIndex].id })
-  }
-
-  // Swipe handlers for mobile
-  const categorySwipeHandlers = useSwipeable({
-    onSwipedLeft: nextCategory,
-    onSwipedRight: prevCategory,
-    trackMouse: false, // Only track touch, not mouse
-    preventScrollOnSwipe: true,
-    delta: 10
-  })
-
-  const projectSwipeHandlers = useSwipeable({
-    onSwipedLeft: nextProject,
-    onSwipedRight: prevProject,
-    trackMouse: false,
-    preventScrollOnSwipe: true,
-    delta: 10
-  })
 
   useEffect(() => {
     setIsClient(true)
@@ -333,22 +283,14 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Category filter with swipe support */}
+        {/* Category filter */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
           className="mb-12"
-          {...categorySwipeHandlers}
         >
-          {/* Mobile swipe indicator */}
-          <div className="flex items-center justify-center gap-2 mb-4 md:hidden">
-            <ChevronLeft className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-500">Swipe to browse categories</span>
-            <ChevronRight className="w-4 h-4 text-gray-500" />
-          </div>
-          
           {/* Mobile: Horizontal scroll, Desktop: Centered wrap */}
           <div className="flex gap-3 overflow-x-auto pb-2 md:justify-center md:flex-wrap scrollbar-hide">
             {projectCategories.map((category) => (
@@ -356,7 +298,6 @@ const Projects = () => {
                 key={category}
                 onClick={() => {
                   setSelectedCategory(category)
-                  setCurrentProjectIndex(0) // Reset project index when category changes
                   trackEvent('project_category_filter', { category })
                 }}
                 className={`px-6 py-3 rounded-full transition-all duration-300 whitespace-nowrap flex-shrink-0 min-h-[48px] ${
@@ -371,15 +312,8 @@ const Projects = () => {
           </div>
         </motion.div>
 
-        {/* Projects grid with swipe support */}
-        <div {...projectSwipeHandlers}>
-          {/* Mobile swipe indicator for projects */}
-          <div className="flex items-center justify-center gap-2 mb-6 md:hidden">
-            <ChevronLeft className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-500">Swipe to browse projects</span>
-            <ChevronRight className="w-4 h-4 text-gray-500" />
-          </div>
-          
+        {/* Projects grid */}
+        <div>
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {filteredProjects.map((project, index) => (
             <motion.div
