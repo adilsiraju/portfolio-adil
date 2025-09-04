@@ -1,4 +1,3 @@
-import StoryHero from '@/components/StoryHero'
 import MagicalAbout from '@/components/MagicalAbout'
 import Experience from '@/components/Experience'
 import Education from '@/components/Education'

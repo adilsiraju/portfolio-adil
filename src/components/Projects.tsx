@@ -22,7 +22,7 @@ interface Project {
   features: string[]
   impact: string
   status: 'In Development' | 'Completed' | 'Maintenance'
-  category: 'Sustainability' | 'Security' | 'AI/ML' | 'Web Development'
+  category: 'Sustainability' | 'Security' | 'AI/ML' | 'Web Development' | 'Productivity'
   icon: React.ReactNode
   color: string
   backgroundGradient: string
