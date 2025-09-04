@@ -16,9 +16,9 @@ export default function Home() {
         <ScrollProgress />
         <VerticalNavigation />
         <main className="relative">
-          <section id="story-hero">
+          {/* <section id="story-hero">
             <StoryHero />
-          </section>
+          </section> */}
           <section id="magical-about">
             <MagicalAbout />
           </section>
