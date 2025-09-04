@@ -71,17 +71,17 @@ export default function ContactEpilogue() {
   return (
     <section
       id="contact"
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 py-24 px-4"
+      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 py-16 sm:py-20 md:py-24 px-4 sm:px-6"
     >
       <div className="max-w-4xl mx-auto relative z-10 text-center">
-        <h2 className="text-5xl font-bold mb-6 text-white leading-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
           Let&apos;s Connect
         </h2>
-        <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
           Ready to create something meaningful? Reach out directly—no forms, just instant contact.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
           {socialLinks.map((link) => (
             <a
               key={link.name}
@@ -89,20 +89,20 @@ export default function ContactEpilogue() {
               target={link.internal ? '_self' : '_blank'}
               rel={link.internal ? undefined : 'noopener noreferrer'}
               onClick={() => handleClick(link)}
-              className={`group relative overflow-hidden rounded-xl border border-slate-700/60 bg-slate-800/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/40 hover:bg-slate-700/40 ${link.color}`}
+              className={`group relative overflow-hidden rounded-xl border border-slate-700/60 bg-slate-800/40 p-4 sm:p-6 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/40 hover:bg-slate-700/40 min-h-[64px] sm:min-h-[72px] ${link.color}`}
             >
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700 group-hover:border-purple-500/40 transition-colors">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="p-2 sm:p-3 rounded-lg bg-slate-900/60 border border-slate-700 group-hover:border-purple-500/40 transition-colors flex-shrink-0">
                   {link.icon}
                 </div>
-                <div className="text-left">
-                  <div className="font-semibold text-white tracking-wide flex items-center gap-2">
-                    {link.name}
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 group-hover:bg-purple-600/30 group-hover:text-purple-200 transition-colors">
+                <div className="text-left min-w-0 flex-1">
+                  <div className="font-semibold text-white tracking-wide flex items-center gap-2 text-sm sm:text-base">
+                    <span className="truncate">{link.name}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700/60 text-slate-300 group-hover:bg-purple-600/30 group-hover:text-purple-200 transition-colors flex-shrink-0">
                       Direct
                     </span>
                   </div>
-                  <div className="text-sm text-slate-400 group-hover:text-slate-300 break-all">
+                  <div className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-300 break-all">
                     {link.description}
                   </div>
                 </div>
@@ -111,7 +111,7 @@ export default function ContactEpilogue() {
           ))}
         </div>
 
-        <p className="mt-14 text-sm text-slate-500">
+        <p className="mt-8 sm:mt-10 md:mt-14 text-xs sm:text-sm text-slate-500 px-4">
           Prefer another channel (Discord, Telegram)? Just mention it when you reach out.
         </p>
       </div>

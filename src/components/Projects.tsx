@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { useSwipeable } from 'react-swipeable'
 import { 
   Rocket, 
   ExternalLink, 
@@ -10,9 +11,12 @@ import {
   Lock,
   Zap,
   Calculator,
-  Building
+  Building,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import { useReducedMotion, useReducedData } from '@/hooks/useAccessibility'
 
 interface Project {
   id: string
@@ -138,23 +142,100 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0)
 
   const { trackSectionView, trackProjectClick, trackEvent } = useAnalytics()
+  const prefersReducedMotion = useReducedMotion()
+  const prefersReducedData = useReducedData()
+
+  // Mobile swipe navigation functions
+  const nextCategory = () => {
+    const currentIndex = projectCategories.indexOf(selectedCategory)
+    const nextIndex = (currentIndex + 1) % projectCategories.length
+    setSelectedCategory(projectCategories[nextIndex])
+    trackEvent('category_swipe', { direction: 'next', category: projectCategories[nextIndex] })
+  }
+
+  const prevCategory = () => {
+    const currentIndex = projectCategories.indexOf(selectedCategory)
+    const prevIndex = currentIndex === 0 ? projectCategories.length - 1 : currentIndex - 1
+    setSelectedCategory(projectCategories[prevIndex])
+    trackEvent('category_swipe', { direction: 'prev', category: projectCategories[prevIndex] })
+  }
+
+  const nextProject = () => {
+    const filteredProjectsList = selectedCategory === 'All' ? projects : projects.filter(p => p.category === selectedCategory)
+    const nextIndex = (currentProjectIndex + 1) % filteredProjectsList.length
+    setCurrentProjectIndex(nextIndex)
+    trackEvent('project_swipe', { direction: 'next', project: filteredProjectsList[nextIndex].id })
+  }
+
+  const prevProject = () => {
+    const filteredProjectsList = selectedCategory === 'All' ? projects : projects.filter(p => p.category === selectedCategory)
+    const prevIndex = currentProjectIndex === 0 ? filteredProjectsList.length - 1 : currentProjectIndex - 1
+    setCurrentProjectIndex(prevIndex)
+    trackEvent('project_swipe', { direction: 'prev', project: filteredProjectsList[prevIndex].id })
+  }
+
+  // Swipe handlers for mobile
+  const categorySwipeHandlers = useSwipeable({
+    onSwipedLeft: nextCategory,
+    onSwipedRight: prevCategory,
+    trackMouse: false, // Only track touch, not mouse
+    preventScrollOnSwipe: true,
+    delta: 10
+  })
+
+  const projectSwipeHandlers = useSwipeable({
+    onSwipedLeft: nextProject,
+    onSwipedRight: prevProject,
+    trackMouse: false,
+    preventScrollOnSwipe: true,
+    delta: 10
+  })
 
   useEffect(() => {
     setIsClient(true)
     // Track section view
     trackSectionView('projects')
     
-    // Generate random positions for background particles
-    const positions = Array.from({ length: 30 }, () => ({
-      x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-      y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-      duration: Math.random() * 12 + 8,
-      delay: Math.random() * 6
-    }))
-    setParticlePositions(positions)
-  }, [trackSectionView])
+    // Generate random positions for background particles - fewer on mobile and respect accessibility preferences
+    const getParticleCount = () => {
+      if (typeof window === 'undefined') return 30;
+      
+      // Respect reduced motion and reduced data preferences
+      if (prefersReducedMotion || prefersReducedData) return 0;
+      
+      return window.innerWidth < 768 ? 8 : window.innerWidth < 1024 ? 15 : 30;
+    }
+    
+    const updateParticles = () => {
+      const count = getParticleCount();
+      if (count === 0) {
+        setParticlePositions([]);
+        return;
+      }
+      
+      const positions = Array.from({ length: count }, () => ({
+        x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+        y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+        // Slower animations for reduced motion
+        duration: prefersReducedMotion ? 20 : Math.random() * 12 + 8,
+        delay: prefersReducedMotion ? 0 : Math.random() * 6
+      }))
+      setParticlePositions(positions)
+    }
+    
+    updateParticles()
+    
+    // Update particles on window resize (device rotation, etc.)
+    const handleResize = () => {
+      setTimeout(updateParticles, 100) // Debounce resize
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [trackSectionView, prefersReducedMotion, prefersReducedData])
 
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -40])
@@ -162,6 +243,21 @@ const Projects = () => {
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
     : projects.filter(project => project.category === selectedCategory)
+
+  // Animation variants that respect accessibility preferences
+  const getAnimationProps = (delay = 0) => ({
+    initial: prefersReducedMotion ? {} : { opacity: 0, y: 80 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { 
+      duration: prefersReducedMotion ? 0.1 : 0.8, 
+      delay: prefersReducedMotion ? 0 : delay 
+    },
+    viewport: { once: true }
+  })
+
+  const getHoverProps = () => prefersReducedMotion ? {} : {
+    whileHover: { scale: 1.02, y: -10 }
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -237,44 +333,62 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Category filter */}
+        {/* Category filter with swipe support */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >          {projectCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category)
-                trackEvent('project_category_filter', { category })
-              }}
-              className={`px-6 py-3 rounded-full transition-all duration-300 ${
-                selectedCategory === category
-                  ? 'bg-orange-500 text-white shadow-lg'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white border border-white/20'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+          className="mb-12"
+          {...categorySwipeHandlers}
+        >
+          {/* Mobile swipe indicator */}
+          <div className="flex items-center justify-center gap-2 mb-4 md:hidden">
+            <ChevronLeft className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-500">Swipe to browse categories</span>
+            <ChevronRight className="w-4 h-4 text-gray-500" />
+          </div>
+          
+          {/* Mobile: Horizontal scroll, Desktop: Centered wrap */}
+          <div className="flex gap-3 overflow-x-auto pb-2 md:justify-center md:flex-wrap scrollbar-hide">
+            {projectCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category)
+                  setCurrentProjectIndex(0) // Reset project index when category changes
+                  trackEvent('project_category_filter', { category })
+                }}
+                className={`px-6 py-3 rounded-full transition-all duration-300 whitespace-nowrap flex-shrink-0 min-h-[48px] ${
+                  selectedCategory === category
+                    ? 'bg-orange-500 text-white shadow-lg'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white border border-white/20'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Projects grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {filteredProjects.map((project, index) => (
+        {/* Projects grid with swipe support */}
+        <div {...projectSwipeHandlers}>
+          {/* Mobile swipe indicator for projects */}
+          <div className="flex items-center justify-center gap-2 mb-6 md:hidden">
+            <ChevronLeft className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-500">Swipe to browse projects</span>
+            <ChevronRight className="w-4 h-4 text-gray-500" />
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+            {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
+              {...getAnimationProps(index * 0.2)}
               className="group"
             >
               <motion.div
-                whileHover={{ scale: 1.02, y: -10 }}
+                {...getHoverProps()}
                 className={`bg-gradient-to-br ${project.backgroundGradient} backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 h-full`}
               >
                 {/* Project header */}
@@ -379,6 +493,7 @@ const Projects = () => {
               </motion.div>
             </motion.div>
           ))}
+          </div>
         </div>
 
         {/* Call to action */}
