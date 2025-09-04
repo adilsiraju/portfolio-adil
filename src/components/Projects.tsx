@@ -111,7 +111,7 @@ const projects: Project[] = [
     longDescription: 'Built and deployed a Convolutional Neural Network (CNN) classifier to identify 25 different architectural styles with 71% accuracy. The project involved comprehensive dataset curation and preprocessing of over 10,000 images from Kaggle, fine-tuning a pretrained model using Transfer Learning techniques, and deploying the solution via both Gradio web app and GitHub Pages for real-time inference.',
     technologies: ['FastAI', 'PyTorch', 'Gradio', 'CNN', 'Transfer Learning', 'GitHub Pages'],
     features: [
-      'CNN-based classification with 71% accuracy across 25 architectural styles',
+      'CNN-based classification with 73% accuracy across 25 architectural styles',
       'Trained on 10k+ curated images from Kaggle dataset',
       'Fine-tuned pretrained model using Transfer Learning',
       'Real-time inference via Gradio web interface',

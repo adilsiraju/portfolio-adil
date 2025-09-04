@@ -41,7 +41,7 @@ const education: Education = {
   institution: 'P.A. College of Engineering, Mangalore',
   duration: 'Dec 2021 – Aug 2025',
   location: 'Mangalore, Karnataka',
-  cgpa: '7.17',
+  cgpa: '7.33',
   modules: [
     'Data Structures',
     'AI & ML',
