@@ -37,10 +37,6 @@ export const useAnalytics = () => {
     await trackEvent('project_click', { project })
   }, [trackEvent])
 
-  const trackContactFormSubmit = useCallback(async () => {
-    await trackEvent('contact_form_submit')
-  }, [trackEvent])
-
   const trackSocialLinkClick = useCallback(async (platform: string, url: string) => {
     await trackEvent('social_link_click', { platform, url })
   }, [trackEvent])
@@ -50,7 +46,6 @@ export const useAnalytics = () => {
     trackPageView,
     trackSectionView,
     trackProjectClick,
-    trackContactFormSubmit,
     trackSocialLinkClick,
   }
 }

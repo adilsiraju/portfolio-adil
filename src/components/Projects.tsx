@@ -9,7 +9,8 @@ import {
   Leaf,
   Lock,
   Zap,
-  Calculator
+  Calculator,
+  Building
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
@@ -102,6 +103,30 @@ const projects: Project[] = [
     backgroundGradient: 'from-green-900/20 to-teal-900/20',
     demoUrl: '', // No live demo, as it is a CLI tool
     githubUrl: 'https://github.com/adilsiraju/PersonalFinanceTracker'
+  },
+  {
+    id: 'architecture-classifier',
+    title: 'Architectural Style Classifier',
+    description: 'CNN-based classifier that identifies 25 architectural styles with 71% accuracy, trained on 10k+ images from Kaggle.',
+    longDescription: 'Built and deployed a Convolutional Neural Network (CNN) classifier to identify 25 different architectural styles with 71% accuracy. The project involved comprehensive dataset curation and preprocessing of over 10,000 images from Kaggle, fine-tuning a pretrained model using Transfer Learning techniques, and deploying the solution via both Gradio web app and GitHub Pages for real-time inference.',
+    technologies: ['FastAI', 'PyTorch', 'Gradio', 'CNN', 'Transfer Learning', 'GitHub Pages'],
+    features: [
+      'CNN-based classification with 71% accuracy across 25 architectural styles',
+      'Trained on 10k+ curated images from Kaggle dataset',
+      'Fine-tuned pretrained model using Transfer Learning',
+      'Real-time inference via Gradio web interface',
+      'Deployed on GitHub Pages for public access',
+      'Custom dataset preprocessing and augmentation',
+      'Interactive web app with Gradio API integration'
+    ],
+    impact: 'Empowering architecture enthusiasts and professionals with an accessible AI tool for style identification, serving over 500 public users with real-time architectural analysis.',
+    status: 'Completed',
+    category: 'AI/ML',
+    icon: <Building className="w-8 h-8" />,
+    color: 'from-blue-500 to-indigo-600',
+    backgroundGradient: 'from-blue-900/20 to-indigo-900/20',
+    demoUrl: 'https://adilsiraju.github.io/Architecture-Style-Classifier/',
+    githubUrl: 'https://github.com/adilsiraju/Architecture-Style-Classifier'
   }
   
 ]

@@ -12,7 +12,8 @@ import {
   Code,
   Database,
   Brain,
-  Shield
+  Shield,
+  Trophy
 } from 'lucide-react'
 
 interface Education {
@@ -82,6 +83,27 @@ const certifications: Certification[] = [
     provider: 'University of Michigan',
     icon: <Brain className="w-5 h-5" />,
     color: 'from-purple-600 to-purple-800'
+  },
+  {
+    id: 'cs50x',
+    title: 'CS50x: Introduction to Computer Science',
+    provider: 'Harvard University',
+    icon: <Code className="w-5 h-5" />,
+    color: 'from-red-600 to-red-800'
+  },
+  {
+    id: 'million-prompters',
+    title: '1 Million Prompters',
+    provider: 'Dubai Future Foundation',
+    icon: <Trophy className="w-5 h-5" />,
+    color: 'from-yellow-600 to-orange-800'
+  },
+  {
+    id: 'matrix-awards',
+    title: 'Matrix University Awards - EcoVest Project',
+    provider: 'Matrix University',
+    icon: <Award className="w-5 h-5" />,
+    color: 'from-indigo-600 to-purple-800'
   }
 ]
 
@@ -89,7 +111,11 @@ const skills = {
   technical: [
     'Python', 'Java', 'C', 'SQL', 'Django', 'Streamlit', 
     'Git', 'VS Code', 'Linux', 'Windows', 'Web Development',
-    'Data Science', 'Machine Learning', 'Artificial Intelligence'
+    'Data Science', 'Machine Learning', 'Artificial Intelligence',
+    'Flask', 'Scratch', 'Data Structures', 'Algorithms', 
+    'Cascading Style Sheets (CSS)', 'Bootstrap (Framework)', 
+    'Database Design', 'Front-End Development', 'Full-Stack Development', 
+    'HTML5', 'Web Applications', 'Web Design'
   ],
   soft: [
     'Problem Solving', 'Critical Thinking', 'Communication',
@@ -98,7 +124,8 @@ const skills = {
   languages: [
     { name: 'English', level: 'Fluent' },
     { name: 'Hindi', level: 'Professional' },
-    { name: 'Malayalam', level: 'Native' }
+    { name: 'Malayalam', level: 'Native' },
+    { name: 'Arabic', level: 'Conversational' }
   ]
 }
 
