@@ -64,8 +64,13 @@ const VerticalNavigation = () => {
   const [activeSection, setActiveSection] = useState('hero')
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
+    
+    if (typeof window === 'undefined') return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -101,6 +106,8 @@ const VerticalNavigation = () => {
   }, [])
 
   const scrollToSection = (href: string) => {
+    if (typeof document === 'undefined') return
+    
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ 
@@ -111,7 +118,7 @@ const VerticalNavigation = () => {
     setIsOpen(false)
   }
 
-  if (!isVisible) return null
+  if (!isClient || !isVisible) return null
 
   return (
     <>

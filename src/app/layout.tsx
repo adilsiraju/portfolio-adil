@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ToastProvider from "@/components/ToastProvider";
-import PWAManager from "@/components/PWAManager";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,10 +18,6 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#3b82f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#3b82f6" }
-  ]
 }
 
 export const metadata: Metadata = {
@@ -38,7 +33,6 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
-  manifest: "/manifest.json",
   metadataBase: new URL("https://adilsiraju.github.io"),
   openGraph: {
     title: "Mohammed Adil Siraju | AI & ML Engineer",
@@ -65,20 +59,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Adil Portfolio"
-  },
-  formatDetection: {
-    telephone: false,
-  },
-  other: {
-    "mobile-web-app-capable": "yes",
-    "application-name": "Adil Portfolio",
-    "msapplication-TileColor": "#3b82f6",
-    "msapplication-config": "/browserconfig.xml"
-  }
 };
 
 export default function RootLayout({
@@ -93,7 +73,6 @@ export default function RootLayout({
       >
         <ToastProvider>
           {children}
-          <PWAManager />
         </ToastProvider>
       </body>
     </html>

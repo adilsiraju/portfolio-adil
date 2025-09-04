@@ -13,7 +13,6 @@ import {
   Building
 } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
-import { useReducedMotion, useReducedData } from '@/hooks/useAccessibility'
 
 interface Project {
   id: string
@@ -49,7 +48,7 @@ const projects: Project[] = [
       'Impact reporting and portfolio management'
     ],
     impact: 'Democratizing sustainable investing and making environmental impact measurable and actionable for everyday investors.',
-    status: 'In Development',
+    status: 'Completed',
     category: 'Sustainability',
     icon: <Leaf className="w-8 h-8" />,
     color: 'from-green-500 to-emerald-600',
@@ -141,17 +140,26 @@ const Projects = () => {
   const [particlePositions, setParticlePositions] = useState<Array<{x: number, y: number, duration: number, delay: number}>>([])
 
   const { trackSectionView, trackProjectClick, trackEvent } = useAnalytics()
-  const prefersReducedMotion = useReducedMotion()
-  const prefersReducedData = useReducedData()
+  
+  // Client-side accessibility checks
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [prefersReducedData, setPrefersReducedData] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
     // Track section view
     trackSectionView('projects')
     
+    // Check accessibility preferences on client
+    if (typeof window !== 'undefined') {
+      setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      setPrefersReducedData(window.matchMedia('(prefers-reduced-data: reduce)').matches)
+    }
+    
     // Generate random positions for background particles - fewer on mobile and respect accessibility preferences
     const getParticleCount = () => {
-      if (typeof window === 'undefined') return 30;
+      // Only calculate particle count on client after hydration
+      if (!isClient || typeof window === 'undefined') return 0;
       
       // Respect reduced motion and reduced data preferences
       if (prefersReducedMotion || prefersReducedData) return 0;
@@ -183,9 +191,11 @@ const Projects = () => {
       setTimeout(updateParticles, 100) // Debounce resize
     }
     
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [trackSectionView, prefersReducedMotion, prefersReducedData])
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }
+  }, [trackSectionView, prefersReducedMotion, prefersReducedData, isClient])
 
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -40])
