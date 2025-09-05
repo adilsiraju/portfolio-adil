@@ -13,6 +13,7 @@ import {
   X,
   ChevronRight
 } from 'lucide-react'
+import { useResponsiveAnimations } from '@/hooks/useResponsiveAnimations'
 
 interface NavItem {
   id: string
@@ -65,6 +66,7 @@ const VerticalNavigation = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isClient, setIsClient] = useState(false)
+  const { getAnimationDuration, getSpringConfig, getStaggerDelay, shouldUseReducedAnimations } = useResponsiveAnimations()
 
   useEffect(() => {
     setIsClient(true)
@@ -126,7 +128,7 @@ const VerticalNavigation = () => {
       <motion.nav
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: getAnimationDuration(0.8), ease: "easeOut" }}
         className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 z-50"
       >
         <div className="flex flex-col gap-2 p-4 bg-black/20 backdrop-blur-xl rounded-2xl border border-white/10">
@@ -135,15 +137,15 @@ const VerticalNavigation = () => {
               key={item.id}
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ delay: getStaggerDelay(index * 0.1), duration: getAnimationDuration(0.5) }}
               onClick={() => scrollToSection(item.href)}
               className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                 activeSection === item.id || activeSection.includes(item.id)
                   ? 'bg-purple-500/20 text-purple-300 shadow-lg shadow-purple-500/20'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
               }`}
-              whileHover={{ scale: 1.05, x: 5 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={shouldUseReducedAnimations ? undefined : { scale: 1.05, x: 5 }}
+              whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.95 }}
             >
               <div className="relative">
                 {item.icon}
@@ -152,7 +154,10 @@ const VerticalNavigation = () => {
                     layoutId="activeIndicator"
                     className="absolute -inset-1 bg-purple-500/30 rounded-lg"
                     initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    transition={shouldUseReducedAnimations 
+                      ? { duration: 0.2, ease: "easeOut" }
+                      : { type: "spring", stiffness: 500, damping: 30 }
+                    }
                   />
                 )}
               </div>
@@ -174,11 +179,11 @@ const VerticalNavigation = () => {
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring", stiffness: 300 }}
+        transition={{ delay: getAnimationDuration(0.5), ...getSpringConfig() }}
         onClick={() => setIsOpen(!isOpen)}
         className="lg:hidden fixed top-6 left-6 z-50 p-3 bg-black/20 backdrop-blur-xl rounded-full border border-white/10 text-white"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={shouldUseReducedAnimations ? undefined : { scale: 1.1 }}
+        whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.9 }}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -187,7 +192,7 @@ const VerticalNavigation = () => {
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: getAnimationDuration(0.2) }}
             >
               <X className="w-6 h-6" />
             </motion.div>
@@ -197,7 +202,7 @@ const VerticalNavigation = () => {
               initial={{ rotate: 90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: getAnimationDuration(0.2) }}
             >
               <Menu className="w-6 h-6" />
             </motion.div>
@@ -220,7 +225,10 @@ const VerticalNavigation = () => {
               initial={{ x: -300, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              transition={shouldUseReducedAnimations 
+                ? { duration: 0.3, ease: "easeOut" }
+                : { type: "spring", damping: 25, stiffness: 200 }
+              }
               className="lg:hidden fixed left-0 top-0 h-full w-80 bg-black/90 backdrop-blur-xl border-r border-white/10 z-40 p-6"
             >
               <div className="mt-20 space-y-2">
@@ -229,15 +237,15 @@ const VerticalNavigation = () => {
                     key={item.id}
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: getStaggerDelay(index * 0.1) }}
                     onClick={() => scrollToSection(item.href)}
                     className={`w-full group flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 ${
                       activeSection === item.id || activeSection.includes(item.id)
                         ? 'bg-purple-500/20 text-purple-300'
                         : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
-                    whileHover={{ x: 10 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldUseReducedAnimations ? undefined : { x: 10 }}
+                    whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.95 }}
                   >
                     {item.icon}
                     <span className="font-medium">{item.label}</span>

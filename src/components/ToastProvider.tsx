@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, createContext, useContext } from 'react'
 import { CheckCircle, XCircle, AlertCircle, Info, X } from 'lucide-react'
+import { useResponsiveAnimations } from '@/hooks/useResponsiveAnimations'
 
 interface Toast {
   id: string
@@ -28,6 +29,7 @@ export const useToast = () => {
 
 const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([])
+  const { getAnimationDuration, shouldUseReducedAnimations } = useResponsiveAnimations()
 
   const addToast = (toast: Omit<Toast, 'id'>) => {
     const id = Math.random().toString(36).substr(2, 9)
@@ -80,9 +82,13 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           {toasts.map((toast) => (
             <motion.div
               key={toast.id}
-              initial={{ opacity: 0, x: 300, scale: 0.3 }}
+              initial={{ opacity: 0, x: 300, scale: shouldUseReducedAnimations ? 1 : 0.3 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+              exit={{ 
+                opacity: 0, 
+                scale: shouldUseReducedAnimations ? 1 : 0.5, 
+                transition: { duration: getAnimationDuration(0.2) } 
+              }}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg min-w-80 ${getColors(toast.type)}`}
             >
               {getIcon(toast.type)}
@@ -90,6 +96,7 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
               <button
                 onClick={() => removeToast(toast.id)}
                 className="hover:bg-white/20 p-1 rounded transition-colors"
+                title="Close notification"
               >
                 <X className="w-4 h-4" />
               </button>

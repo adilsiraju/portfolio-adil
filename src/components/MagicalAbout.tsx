@@ -117,7 +117,7 @@ const MagicalAbout = () => {
         
         {/* Gradient overlays */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse-delay-2s" />
       </motion.div>
 
       <motion.div 
@@ -168,26 +168,14 @@ const MagicalAbout = () => {
               <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-400 to-pink-400 p-1">
                 <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center relative overflow-hidden">
                   {/* Profile Image */}
-                  <div className="relative w-full h-full">
-                    <Image
-                      src="/images/adil.jpg" // You can replace this with your image path
-                      alt="Mohammed Adil Siraju"
-                      fill
-                      className="object-cover rounded-full"
-                      sizes="(max-width: 768px) 160px, 160px"
-                      priority
-                      onError={(e) => {
-                        // Fallback to icon if image fails to load
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const fallback = target.nextElementSibling as HTMLElement;
-                        if (fallback) fallback.style.display = 'flex';
-                      }}
-                    />
-                    {/* Fallback icon */}
-                    <div className="absolute inset-0 flex items-center justify-center" style={{ display: 'none' }}>
-                      <Brain className="w-16 h-16 text-purple-300 z-10" />
-                    </div>                  </div>
+                  <Image
+                    src="/images/adil.jpg"
+                    alt="Mohammed Adil Siraju"
+                    fill
+                    className="object-cover rounded-full"
+                    sizes="(max-width: 768px) 160px, 160px"
+                    priority
+                  />
                 </div>
               </div>
               

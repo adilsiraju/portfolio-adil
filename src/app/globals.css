@@ -312,3 +312,23 @@ html {
 .fluid-text {
   font-size: clamp(1rem, 2.5vw, 2rem);
 }
+
+/* Shimmer animation for image loading */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+}
+
+/* Animation delay utilities */
+.animate-pulse-delay-2s {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: 2s;
+}
