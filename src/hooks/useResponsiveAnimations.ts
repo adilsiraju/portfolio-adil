@@ -17,25 +17,35 @@ export const useResponsiveAnimations = (): ResponsiveAnimationConfig => {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    // Set client state immediately to prevent hydration issues
     setIsClient(true)
     
     if (typeof window !== 'undefined') {
-      // Check for mobile device
+      // Initialize states immediately
       const checkMobile = () => window.innerWidth < 768
-      setIsMobile(checkMobile())
+      const initialMobile = checkMobile()
+      setIsMobile(initialMobile)
       
       // Check for reduced motion preference
       const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
       setPrefersReducedMotion(motionQuery.matches)
       
-      // Listen for viewport changes
-      const handleResize = () => setIsMobile(checkMobile())
+      // Listen for viewport changes (debounced)
+      let timeoutId: NodeJS.Timeout
+      const handleResize = () => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+          setIsMobile(checkMobile())
+        }, 100)
+      }
+      
       const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
       
-      window.addEventListener('resize', handleResize)
+      window.addEventListener('resize', handleResize, { passive: true })
       motionQuery.addEventListener('change', handleMotionChange)
       
       return () => {
+        clearTimeout(timeoutId)
         window.removeEventListener('resize', handleResize)
         motionQuery.removeEventListener('change', handleMotionChange)
       }

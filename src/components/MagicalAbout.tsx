@@ -99,7 +99,8 @@ const MagicalAbout = () => {
             initial={{ 
               x: orb.x, 
               y: orb.y,
-              scale: 0
+              scale: 0,
+              opacity: 0
             }}
             animate={{
               y: [orb.y, orb.y + 200],
@@ -133,9 +134,10 @@ const MagicalAbout = () => {
           className="text-center mb-20"
         >
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            whileInView={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 rounded-full text-pink-300 text-sm font-medium mb-6"
           >
             <Sparkles className="w-4 h-4" />
@@ -330,9 +332,9 @@ const TraitDetailModal = ({ trait, onClose }: { trait: PersonalityTrait, onClose
         <div className="text-center">
           <motion.div
             className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-r ${trait.color} mb-6`}
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
           >
             {trait.icon}
           </motion.div>

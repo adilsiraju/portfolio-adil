@@ -254,9 +254,9 @@ const StoryHero = () => {
         >
           {/* Story step icon */}
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
             className="mb-8 flex justify-center"
           >
             <div className="p-4 rounded-full bg-white/10 backdrop-blur-sm">
