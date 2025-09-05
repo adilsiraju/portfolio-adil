@@ -300,8 +300,8 @@ const MagicalAbout = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <span>🎓 B.Tech in AI & ML</span>
-            <span>🚀 Startup Founder</span>
+            <span>🎓 B.E in AI & ML</span>
+            <span>🧠 Deep Learning</span>
             <span>💡 Research Enthusiast</span>
             <span>🌟 Innovation Catalyst</span>
           </motion.div>
