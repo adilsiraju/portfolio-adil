@@ -176,23 +176,35 @@ const StoryHero = () => {
             To the digital universe of Mohammed Adil Siraju
           </motion.p>
 
-          <motion.button
-            onClick={handleEnterPortfolio}
-            className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.8 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="flex items-center gap-2">
-              Begin the Journey
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-            
-            {/* Hover effect */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-          </motion.button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <motion.button
+              onClick={handleEnterPortfolio}
+              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.5, duration: 0.8 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="flex items-center gap-2">
+                Begin the Journey
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+              {/* Hover effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+            </motion.button>
+
+            <motion.a
+              href="/resume.pdf"
+              download
+              className="px-8 py-4 rounded-full text-white font-semibold text-lg border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-300"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.7, duration: 0.8 }}
+            >
+              Download Resume
+            </motion.a>
+          </div>
 
           {/* Scroll indicator */}
           <motion.div
@@ -294,23 +306,36 @@ const StoryHero = () => {
             {currentStoryStep.description}
           </motion.p>
 
-          {/* Continue button */}
+          {/* Continue button + Resume link */}
           <AnimatePresence>
             {showContinue && (
-              <motion.button
-                onClick={handleContinue}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white font-semibold hover:bg-white/30 transition-all duration-300 border border-white/30"
-              >
-                <span className="flex items-center gap-2">
-                  Continue
-                  <ChevronRight className="w-5 h-5" />
-                </span>
-              </motion.button>
+              <div className="flex items-center justify-center gap-4">
+                <motion.button
+                  onClick={handleContinue}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white font-semibold hover:bg-white/30 transition-all duration-300 border border-white/30"
+                >
+                  <span className="flex items-center gap-2">
+                    Continue
+                    <ChevronRight className="w-5 h-5" />
+                  </span>
+                </motion.button>
+
+                <motion.a
+                  href="/resume.pdf"
+                  download
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="px-8 py-3 rounded-full text-white font-semibold border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-300"
+                >
+                  Download Resume
+                </motion.a>
+              </div>
             )}
           </AnimatePresence>
         </motion.div>
