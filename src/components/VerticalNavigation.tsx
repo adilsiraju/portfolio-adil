@@ -174,8 +174,9 @@ const VerticalNavigation = () => {
           ))}
           {/* Resume button */}
           <a
-            href="/resume.pdf"
-            download
+            href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-2 px-4 py-3 rounded-xl text-white text-sm bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 text-center"
           >
             Download Resume
@@ -261,8 +262,9 @@ const VerticalNavigation = () => {
                   </motion.button>
                 ))}
                 <a
-                  href="/resume.pdf"
-                  download
+                  href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-4 block w-full text-center px-4 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium"
                 >
                   Download Resume

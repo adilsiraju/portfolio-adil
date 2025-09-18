@@ -42,8 +42,9 @@ const Footer = () => {
         </motion.div>
         <div className="mt-4 text-center">
           <a
-            href="/resume.pdf"
-            download
+            href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block text-sm text-purple-300 hover:text-purple-200 underline/30 hover:underline"
           >
             Download Resume
