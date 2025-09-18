@@ -1,15 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-interface AnalyticsEvent {
-  type: 'page_view' | 'project_click' | 'section_view' | 'download' | 'contact_click'
-  page?: string
-  section?: string
-  project?: string
-  timestamp: string
-  userAgent?: string
-  referer?: string
-}
-
 export async function POST(request: NextRequest) {
   // Analytics disabled: accept and ignore to avoid client errors
   try {
