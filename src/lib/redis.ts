@@ -1,44 +1,26 @@
-import { createClient } from 'redis'
+// Redis disabled: export a no-op client to fully remove DB connectivity.
+// This avoids importing any Redis library and ensures all calls are safe.
 
-const redisUrl = process.env.REDIS_URL
+type AsyncFn<T = unknown> = (...args: any[]) => Promise<T>
 
-if (!redisUrl || redisUrl === 'your_redis_url_here') {
-  console.warn('REDIS_URL environment variable is not set or using placeholder value')
+interface NoOpRedisClient {
+  hSet: AsyncFn<string>
+  hGetAll: AsyncFn<Record<string, string>>
+  lPush: AsyncFn<number>
+  lRange: AsyncFn<string[]>
+  get: AsyncFn<string | null>
+  incr: AsyncFn<number>
 }
 
-let redis: ReturnType<typeof createClient> | null = null
-
-// Only create Redis client if we have a valid URL
-if (redisUrl && redisUrl !== 'your_redis_url_here') {
-  try {
-    redis = createClient({
-      url: redisUrl,
-    })
-
-    redis.on('error', (err) => {
-      console.error('Redis Client Error', err)
-    })
-
-    // Connect to Redis
-    if (!redis.isOpen) {
-      redis.connect().catch(console.error)
-    }
-  } catch (error) {
-    console.error('Failed to create Redis client:', error)
-    redis = null
-  }
+const noOp: AsyncFn<any> = async () => {
+  return typeof 1 === 'number' ? (undefined as any) : undefined
 }
 
-// Create a mock Redis client for development/build
-const mockRedis = {
+export const redisClient: NoOpRedisClient = {
   hSet: async () => 'OK',
   hGetAll: async () => ({}),
   lPush: async () => 1,
   lRange: async () => [],
   get: async () => null,
   incr: async () => 1,
-  isOpen: false,
-  connect: async () => undefined,
 }
-
-export const redisClient = redis || mockRedis

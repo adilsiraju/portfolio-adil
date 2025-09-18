@@ -3,43 +3,31 @@
 import { useCallback } from 'react'
 
 export const useAnalytics = () => {
-  const trackEvent = useCallback(async (event: string, data?: Record<string, unknown>) => {
-    try {
-      await fetch('/api/analytics', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          event,
-          data: {
-            ...data,
-            timestamp: new Date().toISOString(),
-            userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : '',
-            url: typeof window !== 'undefined' ? window.location.href : '',
-          },
-        }),
-      })
-    } catch (error) {
-      console.error('Analytics tracking error:', error)
-    }
+  // Analytics disabled: provide no-op functions to avoid network/DB calls
+  const trackEvent = useCallback(async (_event: string, _data?: Record<string, unknown>) => {
+    void _event; void _data
+    return
   }, [])
 
-  const trackPageView = useCallback(async (page: string) => {
-    await trackEvent('page_view', { page })
-  }, [trackEvent])
+  const trackPageView = useCallback(async (_page: string) => {
+    void _page
+    return
+  }, [])
 
-  const trackSectionView = useCallback(async (section: string) => {
-    await trackEvent('section_view', { section })
-  }, [trackEvent])
+  const trackSectionView = useCallback(async (_section: string) => {
+    void _section
+    return
+  }, [])
 
-  const trackProjectClick = useCallback(async (project: string) => {
-    await trackEvent('project_click', { project })
-  }, [trackEvent])
+  const trackProjectClick = useCallback(async (_project: string) => {
+    void _project
+    return
+  }, [])
 
-  const trackSocialLinkClick = useCallback(async (platform: string, url: string) => {
-    await trackEvent('social_link_click', { platform, url })
-  }, [trackEvent])
+  const trackSocialLinkClick = useCallback(async (_platform: string, _url: string) => {
+    void _platform; void _url
+    return
+  }, [])
 
   return {
     trackEvent,
