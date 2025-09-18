@@ -40,6 +40,15 @@ const Footer = () => {
             Building the future, one line of code at a time.
           </p>
         </motion.div>
+        <div className="mt-4 text-center">
+          <a
+            href="/resume.pdf"
+            download
+            className="inline-block text-sm text-purple-300 hover:text-purple-200 underline/30 hover:underline"
+          >
+            Download Resume
+          </a>
+        </div>
       </div>
     </footer>
   )

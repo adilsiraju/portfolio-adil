@@ -172,6 +172,14 @@ const VerticalNavigation = () => {
               </motion.div>
             </motion.button>
           ))}
+          {/* Resume button */}
+          <a
+            href="/resume.pdf"
+            download
+            className="mt-2 px-4 py-3 rounded-xl text-white text-sm bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 text-center"
+          >
+            Download Resume
+          </a>
         </div>
       </motion.nav>
 
@@ -252,6 +260,13 @@ const VerticalNavigation = () => {
                     <ChevronRight className="w-4 h-4 ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
                   </motion.button>
                 ))}
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="mt-4 block w-full text-center px-4 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium"
+                >
+                  Download Resume
+                </a>
               </div>
 
               {/* Footer in mobile nav */}
