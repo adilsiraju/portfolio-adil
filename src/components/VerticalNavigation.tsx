@@ -25,12 +25,6 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    id: 'hero',
-    label: 'Home',
-    icon: <Home className="w-5 h-5" />,
-    href: '#story-hero'
-  },
-  {
     id: 'about',
     label: 'About',
     icon: <User className="w-5 h-5" />,
@@ -63,7 +57,7 @@ const navItems: NavItem[] = [
 ]
 
 const VerticalNavigation = () => {
-  const [activeSection, setActiveSection] = useState('hero')
+  const [activeSection, setActiveSection] = useState('about')
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isClient, setIsClient] = useState(false)
@@ -174,12 +168,17 @@ const VerticalNavigation = () => {
             </motion.button>
           ))}
           {/* Resume link styled like nav items */}
-          <a
+          <motion.a
             href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Download Resume"
-            className="group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5 mt-2"
+            className="group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-purple-300 hover:text-white bg-purple-500/10 hover:bg-purple-500/20 mt-2 hover:shadow-lg hover:shadow-purple-500/20"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: getStaggerDelay(navItems.length * 0.1), duration: getAnimationDuration(0.5) }}
+            whileHover={shouldUseReducedAnimations ? undefined : { scale: 1.05, x: 5 }}
+            whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.95 }}
           >
             <FileDown className="w-5 h-5" />
             {/* Tooltip */}
@@ -190,7 +189,7 @@ const VerticalNavigation = () => {
               Download Resume
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900/90 rotate-45" />
             </motion.div>
-          </a>
+          </motion.a>
         </div>
       </motion.nav>
 
@@ -278,7 +277,7 @@ const VerticalNavigation = () => {
                   href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full group flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5"
+                  className="w-full group flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-purple-300 hover:text-white hover:bg-purple-500/20"
                   whileHover={shouldUseReducedAnimations ? undefined : { x: 10 }}
                   whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.95 }}
                 >
