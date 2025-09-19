@@ -11,7 +11,8 @@ import {
   Mail, 
   Menu, 
   X,
-  ChevronRight
+  ChevronRight,
+  FileDown
 } from 'lucide-react'
 import { useResponsiveAnimations } from '@/hooks/useResponsiveAnimations'
 
@@ -172,14 +173,23 @@ const VerticalNavigation = () => {
               </motion.div>
             </motion.button>
           ))}
-          {/* Resume button */}
+          {/* Resume link styled like nav items */}
           <a
             href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 px-4 py-3 rounded-xl text-white text-sm bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 text-center"
+            aria-label="Download Resume"
+            className="group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5 mt-2"
           >
-            Download Resume
+            <FileDown className="w-5 h-5" />
+            {/* Tooltip */}
+            <motion.div
+              className="absolute left-full ml-4 px-3 py-2 bg-gray-900/90 backdrop-blur-sm text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              initial={false}
+            >
+              Download Resume
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900/90 rotate-45" />
+            </motion.div>
           </a>
         </div>
       </motion.nav>
@@ -261,14 +271,21 @@ const VerticalNavigation = () => {
                     <ChevronRight className="w-4 h-4 ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
                   </motion.button>
                 ))}
-                <a
+                <motion.a
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: getStaggerDelay(navItems.length * 0.1) }}
                   href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 block w-full text-center px-4 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium"
+                  className="w-full group flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5"
+                  whileHover={shouldUseReducedAnimations ? undefined : { x: 10 }}
+                  whileTap={shouldUseReducedAnimations ? undefined : { scale: 0.95 }}
                 >
-                  Download Resume
-                </a>
+                  <FileDown className="w-5 h-5" />
+                  <span className="font-medium">Download Resume</span>
+                  <ChevronRight className="w-4 h-4 ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
+                </motion.a>
               </div>
 
               {/* Footer in mobile nav */}
