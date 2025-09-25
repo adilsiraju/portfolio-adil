@@ -180,7 +180,8 @@ const projects: Project[] = [
   
 ]
 
-const projectCategories = ['All', 'Sustainability', 'Security', 'AI/ML', 'Web Development', 'Productivity']
+// Reordered to surface AI/ML focused work first, then Sustainability & Productivity; Security & Web Dev later
+const projectCategories = ['All', 'AI/ML', 'Sustainability', 'Productivity', 'Security', 'Web Development']
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
@@ -249,8 +250,22 @@ const Projects = () => {
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -40])
 
-  const filteredProjects = selectedCategory === 'All' 
-    ? projects 
+  // Category priority: AI/ML first, then others; Security & Web Development at the end
+  const categoryPriority: Record<Project['category'], number> = {
+    'AI/ML': 0,
+    'Sustainability': 1,
+    'Productivity': 2,
+    'Security': 3,
+    'Web Development': 4
+  }
+
+  const filteredProjects = selectedCategory === 'All'
+    ? [...projects].sort((a, b) => {
+        const pa = categoryPriority[a.category]
+        const pb = categoryPriority[b.category]
+        if (pa !== pb) return pa - pb
+        return 0 // keep original relative order within same category
+      })
     : projects.filter(project => project.category === selectedCategory)
 
   // Animation variants that respect accessibility preferences
