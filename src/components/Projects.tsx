@@ -77,7 +77,7 @@ const projects: Project[] = [
     icon: <Building className="w-8 h-8" />,
     color: 'from-fuchsia-500 to-pink-600',
     backgroundGradient: 'from-fuchsia-900/20 to-pink-900/20',
-    demoUrl: '',
+    demoUrl: 'https://huggingface.co/spaces/adilsiraju/Medical-Case-Classifier',
     githubUrl: 'https://github.com/adilsiraju/Medical-Case-Classifier'
   },
   {
