@@ -78,7 +78,7 @@ const projects: Project[] = [
     color: 'from-fuchsia-500 to-pink-600',
     backgroundGradient: 'from-fuchsia-900/20 to-pink-900/20',
     demoUrl: 'https://huggingface.co/spaces/adilsiraju/Medical-Case-Classifier',
-    githubUrl: 'https://github.com/adilsiraju/Medical-Case-Classifier'
+    githubUrl: 'https://github.com/adilsiraju/medical_document_classifier'
   },
   {
     id: 'password-manager',
