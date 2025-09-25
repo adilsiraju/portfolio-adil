@@ -57,6 +57,30 @@ const projects: Project[] = [
     githubUrl: ''
   },
   {
+    id: 'medical-doc-classifier',
+    title: 'Medical Document Classifier',
+    description: 'Bio_ClinicalBERT fine-tuned to classify clinical documents across 13+ specialties with 81.08% accuracy.',
+    longDescription: 'Developed a medical document classifier by fine-tuning a pre-trained Bio_ClinicalBERT model on a curated dataset of clinical texts spanning 13+ medical specialties. Achieved 81.08% overall test accuracy with a top F1-score of 0.968 for Cardiovascular / Pulmonary documents, demonstrating strong specialization performance. Deployed an interactive Gradio web app enabling real-time medical text classification end-to-end.',
+    technologies: ['Hugging Face', 'Transformers', 'PyTorch', 'Bio_ClinicalBERT', 'Gradio', 'NLP', 'Fine-Tuning'],
+    features: [
+      'Fine-tuned Bio_ClinicalBERT for multi-specialty classification',
+      '81.08% test accuracy across 13+ medical specialties',
+      'Top F1-score of 0.968 (Cardiovascular / Pulmonary)',
+      'Interactive real-time inference via Gradio UI',
+      'Robust preprocessing & tokenization pipeline',
+      'Exportable model for downstream clinical NLP tasks',
+      'Scalable architecture for adding new specialties'
+    ],
+    impact: 'Accelerates triage and categorization of clinical documents, reducing manual review time and enabling faster downstream processing in healthcare NLP pipelines.',
+    status: 'Completed',
+    category: 'AI/ML',
+    icon: <Building className="w-8 h-8" />,
+    color: 'from-fuchsia-500 to-pink-600',
+    backgroundGradient: 'from-fuchsia-900/20 to-pink-900/20',
+    demoUrl: '',
+    githubUrl: 'https://github.com/adilsiraju/Medical-Case-Classifier'
+  },
+  {
     id: 'password-manager',
     title: 'Simple Password Manager',
     description: 'A secure CLI-based password manager with advanced encryption and master key authentication.',
@@ -107,8 +131,8 @@ const projects: Project[] = [
   {
     id: 'architecture-classifier',
     title: 'Architectural Style Classifier',
-    description: 'CNN-based classifier that identifies 25 architectural styles with 71% accuracy, trained on 10k+ images from Kaggle.',
-    longDescription: 'Built and deployed a Convolutional Neural Network (CNN) classifier to identify 25 different architectural styles with 71% accuracy. The project involved comprehensive dataset curation and preprocessing of over 10,000 images from Kaggle, fine-tuning a pretrained model using Transfer Learning techniques, and deploying the solution via both Gradio web app and GitHub Pages for real-time inference.',
+    description: 'CNN-based classifier that identifies 25 architectural styles with 73% accuracy, trained on 10k+ images from Kaggle.',
+    longDescription: 'Built and deployed a Convolutional Neural Network (CNN) classifier to identify 25 different architectural styles with 73% accuracy. The project involved comprehensive dataset curation and preprocessing of over 10,000 images from Kaggle, fine-tuning a pretrained model using Transfer Learning techniques, and deploying the solution via both Gradio web app and GitHub Pages for real-time inference.',
     technologies: ['FastAI', 'PyTorch', 'Gradio', 'CNN', 'Transfer Learning', 'GitHub Pages'],
     features: [
       'CNN-based classification with 73% accuracy across 25 architectural styles',
@@ -127,6 +151,31 @@ const projects: Project[] = [
     backgroundGradient: 'from-blue-900/20 to-indigo-900/20',
     demoUrl: 'https://adilsiraju.github.io/Architecture-Style-Classifier/',
     githubUrl: 'https://github.com/adilsiraju/Architecture-Style-Classifier'
+  }
+  ,
+  {
+    id: 'netflix-userbase-eda',
+    title: 'Netflix Userbase Analysis',
+    description: 'Exploratory data analysis on 8k+ Netflix user records to uncover patterns in demographics, subscriptions, and revenue.',
+    longDescription: 'Conducted comprehensive exploratory data analysis (EDA) on a dataset of 8k+ Netflix user records to identify demographic trends, subscription behaviors, and revenue distribution patterns. Built visualizations to analyze age, gender, and country-level revenue, and identified churn-prone segments with strategic retention insights.',
+    technologies: ['Python', 'Pandas', 'Seaborn', 'Matplotlib', 'EDA', 'Data Visualization'],
+    features: [
+      'Analyzed 8k+ user records for demographic and subscription patterns',
+      'Country-level revenue and engagement insights',
+      'Churn-prone user segment identification',
+      'Custom visualizations for age/gender distributions',
+      'Actionable retention and marketing insights',
+      'Efficient data cleaning and preprocessing pipeline',
+      'Insight storytelling with structured EDA workflow'
+    ],
+    impact: 'Provides strategic insights for subscription retention and growth by highlighting churn risks and untapped demographic opportunities.',
+    status: 'Completed',
+  category: 'Productivity',
+    icon: <Calculator className="w-8 h-8" />, // Reuse icon; could customize
+    color: 'from-yellow-500 to-amber-600',
+    backgroundGradient: 'from-yellow-900/20 to-amber-900/20',
+    demoUrl: '',
+    githubUrl: 'https://github.com/adilsiraju/Netflix-Userbase-EDA'
   }
   
 ]

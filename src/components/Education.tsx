@@ -65,7 +65,7 @@ const certifications: Certification[] = [
   },
   {
     id: 'ibm-python',
-    title: 'IBM Python for Data Science',
+    title: 'Python for Data Science',
     provider: 'IBM',
     icon: <Code className="w-5 h-5" />,
     color: 'from-green-600 to-green-800'
@@ -79,14 +79,14 @@ const certifications: Certification[] = [
   },
   {
     id: 'umich-thinking',
-    title: 'Computational Thinking',
+    title: 'Problem Solving Using Computational Thinking',
     provider: 'University of Michigan',
     icon: <Brain className="w-5 h-5" />,
     color: 'from-purple-600 to-purple-800'
   },
   {
     id: 'cs50x',
-    title: 'CS50x: Introduction to Computer Science',
+    title: 'CS50x - Computer Science Fundamentals',
     provider: 'Harvard University',
     icon: <Code className="w-5 h-5" />,
     color: 'from-red-600 to-red-800'
@@ -109,13 +109,11 @@ const certifications: Certification[] = [
 
 const skills = {
   technical: [
-    'Python', 'Java', 'C', 'SQL', 'Django', 'Streamlit', 
-    'Git', 'VS Code', 'Linux', 'Windows', 'Web Development',
-    'Data Science', 'Machine Learning', 'Artificial Intelligence',
-    'Flask', 'Scratch', 'Data Structures', 'Algorithms', 
-    'Cascading Style Sheets (CSS)', 'Bootstrap (Framework)', 
-    'Database Design', 'Front-End Development', 'Full-Stack Development', 
-    'HTML5', 'Web Applications', 'Web Design'
+    'Python', 'SQL', 'PyTorch', 'FastAI', 'Hugging Face Transformers', 'scikit-learn',
+    'Computer Vision', 'NLP', 'Deep Learning', 'Model Deployment', 'Docker', 'Kubernetes (Basic)',
+    'Gradio', 'Jupyter', 'Git', 'CI/CD', 'Linux', 'Data Science', 'Machine Learning', 'Artificial Intelligence',
+    'Django', 'Streamlit', 'Flask', 'Data Structures', 'Algorithms', 'Web Development',
+    'HTML5', 'CSS', 'Bootstrap', 'Database Design', 'Full-Stack Development'
   ],
   soft: [
     'Problem Solving', 'Critical Thinking', 'Communication',

@@ -148,8 +148,7 @@ const MagicalAbout = () => {
             Meet the Mind
           </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            An aspiring AI & ML Engineer from Thalassery, Kerala, with hands-on experience across 
-            top tech companies and a passion for sustainable innovation. Here&apos;s my story.
+              Machine Learning & Deep Learning Engineer (B.E. AI & ML, First Class with Distinction) skilled in PyTorch, FastAI, Hugging Face and end-to-end ML pipelines—from data preprocessing and experimentation to model optimization, evaluation, and deployment. Hands-on across computer vision, NLP, and MLOps tooling with a track record of shipping real, usable ML applications.
           </p>
         </motion.div>
 

@@ -53,10 +53,9 @@ const experiences: Experience[] = [
     type: 'On-site Internship',
     description: 'Specialized in implementing DevOps practices for AI model development and deployment in real-world scenarios.',
     achievements: [
-      'Implemented CI/CD pipelines for automated ML model deployment',
-      'Mastered containerization and orchestration for AI applications',
-      'Collaborated in team environments simulating production workflows',
-      'Gained expertise in version control and automated testing for ML'
+      'Set up CI/CD pipelines in lab environments to automate ML model testing & deployment',
+      'Worked with Docker and Kubernetes for containerized model deployment simulations',
+      'Supported team in designing scalable infrastructure for ML workflows'
     ],
     technologies: ['Docker', 'Kubernetes', 'Jenkins', 'Git', 'CI/CD', 'ML Ops'],
     icon: <Cpu className="w-6 h-6" />,
