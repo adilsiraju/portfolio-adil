@@ -181,7 +181,7 @@ const projects: Project[] = [
 ]
 
 // Reordered to surface AI/ML focused work first, then Sustainability & Productivity; Security & Web Dev later
-const projectCategories = ['All', 'AI/ML', 'Sustainability', 'Productivity', 'Security', 'Web Development']
+const projectCategories = ['All', 'AI/ML', 'Productivity', 'Sustainability', 'Security', 'Web Development']
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
