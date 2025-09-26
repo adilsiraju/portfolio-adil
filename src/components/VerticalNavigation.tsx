@@ -297,6 +297,21 @@ const VerticalNavigation = () => {
           </>
         )}
       </AnimatePresence>
+
+      {/* Mobile floating Resume CTA */}
+      <motion.a
+        href="https://drive.google.com/file/d/1d1J9dE3Rm84zGwUwOiI74z9Kx-LkuUWi/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Resume"
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: getAnimationDuration(0.4) }}
+        className="lg:hidden fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30"
+      >
+        <FileDown className="w-5 h-5" />
+        <span className="font-semibold">Resume</span>
+      </motion.a>
     </>
   )
 }
