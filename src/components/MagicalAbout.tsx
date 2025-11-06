@@ -205,7 +205,7 @@ const MagicalAbout = () => {
             </div>
             
             <h3 className="text-3xl font-bold text-white mb-4">Mohammed Adil Siraju</h3>
-            <p className="text-lg text-purple-300 font-medium mb-6">AI/ML Engineer & Digital Storyteller</p>
+            <p className="text-lg text-purple-300 font-medium mb-6">AI/ML Engineer & Applied AI Builder</p>
             
             <motion.p 
               className="text-gray-300 max-w-2xl mx-auto leading-relaxed"
