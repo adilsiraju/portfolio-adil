@@ -33,6 +33,50 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 'yolo-coins-counter',
+    title: 'YOLO Coins Counter',
+    description: 'Real-time UAE coin detection delivering instant AED totals with a custom YOLO11s model.',
+    longDescription: 'Built a custom YOLO11s model in under 24 hours to detect 1 Dirham, 50 Fils, and 25 Fils coins. Trained on 118 manually captured images and deployed via Gradio on Hugging Face Spaces to calculate total AED from live feeds or uploaded photos.',
+    technologies: ['YOLO11s', 'PyTorch', 'Ultralytics', 'Gradio', 'Hugging Face Spaces', 'Computer Vision'],
+    features: [
+      'Custom YOLO11s model detects 1 AED dirham, 50 fils, and 25 fils coins in real time.',
+      'Rapid 24-hour prototyping pipeline from dataset capture through deployment.',
+      'Annotated 118-image dataset achieving precision 0.89, recall 0.99, and mAP50 0.995.',
+      'Automated total AED calculation for both uploaded images and live camera streams.',
+      'End-to-end lifecycle ownership spanning dataset creation, training, evaluation, and shipping.'
+    ],
+    impact: 'Automates UAE coin counting for point-of-sale and event scenarios, eliminating manual tally errors with computer vision.',
+    status: 'Completed',
+    category: 'AI/ML',
+    icon: <Zap className="w-8 h-8" />,
+    color: 'from-orange-500 to-amber-600',
+    backgroundGradient: 'from-orange-900/20 to-amber-900/20',
+    demoUrl: '',
+    githubUrl: ''
+  },
+  {
+    id: 'rag-ai-agent',
+    title: 'RAG AI Agent',
+    description: 'Low-code retrieval-augmented agent combining n8n, Supabase, and Gemini APIs for grounded answers.',
+    longDescription: 'Designed and deployed a Retrieval-Augmented Generation agent in n8n, orchestrating ingestion, embedding, retrieval, and response steps. Supabase stores vector embeddings while Gemini APIs generate context-aware answers for custom document corpora.',
+    technologies: ['n8n', 'Supabase', 'Gemini APIs', 'RAG', 'Vector Databases', 'Workflow Automation'],
+    features: [
+      'Built an end-to-end RAG workflow in n8n covering ingestion, embedding, retrieval, and response orchestration.',
+      'Leveraged Supabase as a managed vector database for similarity search over custom documents.',
+      'Integrated Gemini APIs to craft grounded, context-rich answers for user queries.',
+      'Connected automated data ingestion and refresh routines to keep the knowledge base current.',
+      'Explored agent memory strategies and reliability checks to improve follow-up interactions.'
+    ],
+    impact: 'Delivers a scalable document-question agent pattern while strengthening expertise in agentic workflows and low-code automation.',
+    status: 'Completed',
+    category: 'AI/ML',
+    icon: <Rocket className="w-8 h-8" />,
+    color: 'from-cyan-500 to-blue-600',
+    backgroundGradient: 'from-cyan-900/20 to-blue-900/20',
+    demoUrl: '',
+    githubUrl: ''
+  },
+  {
     id: 'ecovest',
     title: 'EcoVest',
     description: 'A comprehensive web platform enabling sustainable investing by connecting users with eco-initiatives.',

@@ -109,9 +109,10 @@ const certifications: Certification[] = [
 
 const skills = {
   technical: [
-    'Python', 'SQL', 'PyTorch', 'FastAI', 'Hugging Face Transformers', 'scikit-learn',
-    'Computer Vision', 'NLP', 'Deep Learning', 'Model Deployment', 'Docker', 'Kubernetes (Basic)',
-    'Gradio', 'Jupyter', 'Git', 'CI/CD', 'Linux', 'Data Science', 'Machine Learning', 'Artificial Intelligence',
+    'Python', 'SQL', 'PyTorch', 'FastAI', 'Hugging Face Transformers', 'YOLO11s', 'Ultralytics', 'scikit-learn',
+    'Computer Vision', 'NLP', 'Deep Learning', 'Model Deployment', 'RAG Pipelines', 'Vector Databases', 'Workflow Automation',
+    'Docker', 'Kubernetes (Basic)', 'Gradio', 'Hugging Face Spaces', 'Jupyter', 'Supabase', 'n8n', 'Gemini APIs',
+    'Git', 'CI/CD', 'Linux', 'Data Science', 'Machine Learning', 'Artificial Intelligence',
     'Django', 'Streamlit', 'Flask', 'Data Structures', 'Algorithms', 'Web Development',
     'HTML5', 'CSS', 'Bootstrap', 'Database Design', 'Full-Stack Development'
   ],
