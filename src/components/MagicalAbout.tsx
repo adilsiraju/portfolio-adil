@@ -27,10 +27,10 @@ interface PersonalityTrait {
 const personalityTraits: PersonalityTrait[] = [
   {
     id: 'innovator',
-    title: 'The Sustainable Innovator',
+    title: 'The Rapid Vision Builder',
     icon: <Lightbulb className="w-6 h-6" />,
-    description: 'Building EcoVest for accessible sustainable investing',
-    story: 'Currently developing EcoVest, a platform that connects users with eco-initiatives while tracking environmental impact through carbon, energy, and water metrics. Every line of code contributes to a greener future.',
+    description: 'Spun up the YOLO Coins Counter in under 24 hours',
+    story: 'Captured and annotated 118 images, trained a custom YOLO11s model, and deployed it via Gradio on Hugging Face Spaces to calculate UAE coin totals instantly. Fast experiments meeting real-world utility is where I thrive.',
     color: 'from-green-500 to-emerald-500'
   },
   {
@@ -43,10 +43,10 @@ const personalityTraits: PersonalityTrait[] = [
   },
   {
     id: 'builder',
-    title: 'The DevOps Practitioner',
+    title: 'The Agentic Orchestrator',
     icon: <Code className="w-6 h-6" />,
-    description: 'AI + DevOps for scalable solutions',
-    story: 'From implementing CI/CD pipelines for ML models to working with Docker, Kubernetes, and Jenkins. I bridge the gap between AI innovation and production-ready deployments.',
+    description: 'RAG workflows stitched together with n8n and Supabase',
+    story: 'Designed a Retrieval-Augmented Generation agent that ingests documents, embeds them into Supabase vectors, and routes grounded responses through Gemini APIs. Low-code orchestration plus ML architecture keeps ideas shipping fast.',
     color: 'from-purple-500 to-pink-500'
   },
   {
@@ -148,7 +148,7 @@ const MagicalAbout = () => {
             Meet the Mind
           </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Machine Learning & Deep Learning Engineer (B.E. AI & ML, First Class with Distinction) skilled in PyTorch, FastAI, Hugging Face and end-to-end ML pipelines—from data preprocessing and experimentation to model optimization, evaluation, and deployment. Hands-on across computer vision, NLP, and MLOps tooling with a track record of shipping real, usable ML applications.
+              Machine Learning & Deep Learning Engineer (B.E. AI & ML, First Class with Distinction) shipping end-to-end experiences across computer vision, RAG pipelines, and MLOps. From custom YOLO11s deployments to Gemini-powered agents, I turn rapid experiments into production-ready systems.
           </p>
         </motion.div>
 
@@ -214,7 +214,7 @@ const MagicalAbout = () => {
               transition={{ delay: 0.5, duration: 0.8 }}
               viewport={{ once: true }}
             >              A passionate explorer of the digital frontier—where artificial intelligence meets human creativity.
-            I’m currently building impactful AI-driven solutions that blend innovation with real-world value.
+            Recent wins include launching a YOLO-powered coins counter and a Supabase-backed RAG agent, each focused on pairing technical rigor with user impact.
             </motion.p>
           </motion.div>
         </motion.div>
@@ -290,9 +290,9 @@ const MagicalAbout = () => {
             viewport={{ once: true }}
           >
             <span>🎓 B.E in AI & ML</span>
-            <span>🧠 Deep Learning</span>
-            <span>💡 Research Enthusiast</span>
-            <span>🌟 Innovation Catalyst</span>
+            <span>🧠 Custom Vision Systems</span>
+            <span>� RAG & Agentic Workflows</span>
+            <span>🌟 Rapid Prototyping</span>
           </motion.div>
         </motion.div>
       </motion.div>

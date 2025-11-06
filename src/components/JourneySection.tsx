@@ -30,40 +30,36 @@ interface JourneyChapter {
 
 const journeyChapters: JourneyChapter[] = [
   {
-    id: 'ai-startup-catalyst',
-    title: 'AI Startup Catalyst',
-    subtitle: 'Where algorithms meet entrepreneurship',
-    description: 'An intelligent platform that transforms startup ideas into actionable business plans using advanced AI.',
-    image: '/images/ai-catalyst.jpg',
-    tech: ['Python', 'TensorFlow', 'React', 'FastAPI', 'GPT-4'],
-    demoUrl: 'https://ai-catalyst-demo.vercel.app',
-    githubUrl: 'https://github.com/adil/ai-startup-catalyst',
+    id: 'yolo-coins-counter',
+    title: 'YOLO Coins Counter',
+    subtitle: 'Vision AI that tallies AED instantly',
+    description: 'Custom YOLO11s pipeline detects UAE coins from a camera feed and totals their value through a Gradio interface.',
+    image: '/images/yolo-coins-counter.jpg',
+    tech: ['YOLO11s', 'PyTorch', 'Ultralytics', 'Gradio', 'Hugging Face Spaces'],
     featured: true,
-    story: 'Born from late-night coding sessions and a vision to democratize entrepreneurship through AI.'
+    story: 'Captured and annotated 118 images, trained a bespoke detector overnight, and deployed it to Hugging Face Spaces to automate coin counting for events and kiosks.'
   },
   {
-    id: 'neural-symphony',
-    title: 'Neural Symphony',
-    subtitle: 'Music composed by artificial minds',
-    description: 'A deep learning model that composes original music pieces based on emotion and genre preferences.',
-    image: '/images/neural-music.jpg',
-    tech: ['PyTorch', 'MIDI', 'Python', 'JavaScript', 'Web Audio API'],
-    demoUrl: 'https://neural-symphony.vercel.app',
-    githubUrl: 'https://github.com/adil/neural-symphony',
+    id: 'rag-ai-agent',
+    title: 'RAG AI Agent',
+    subtitle: 'Agentic workflows on n8n + Supabase',
+    description: 'Retrieval-Augmented Generation agent that ingests documents, embeds them into Supabase vectors, and answers queries via Gemini APIs.',
+    image: '/images/rag-ai-agent.jpg',
+    tech: ['n8n', 'Supabase', 'Gemini APIs', 'RAG', 'Workflow Automation'],
     featured: true,
-    story: 'What happens when you teach a neural network to understand the language of music?'
+    story: 'Orchestrated ingestion, embedding, and response steps with low-code automation while layering in agent memory and reliability checks for grounded answers.'
   },
   {
-    id: 'smart-health-guardian',
-    title: 'Smart Health Guardian',
-    subtitle: 'AI-powered healthcare companion',
-    description: 'Predictive health monitoring system using IoT sensors and machine learning for early disease detection.',
-    image: '/images/health-ai.jpg',
-    tech: ['Python', 'scikit-learn', 'IoT', 'React Native', 'MongoDB'],
-    demoUrl: 'https://health-guardian.vercel.app',
-    githubUrl: 'https://github.com/adil/smart-health-guardian',
+    id: 'medical-doc-classifier',
+    title: 'Medical Document Classifier',
+    subtitle: 'Bio_ClinicalBERT fine-tuned for triage',
+    description: 'Classifies clinical documents across 13+ specialties with 81% test accuracy and an interactive Gradio front-end.',
+    image: '/images/medical-doc-classifier.jpg',
+    tech: ['Bio_ClinicalBERT', 'PyTorch', 'Transformers', 'Gradio', 'NLP'],
+    demoUrl: 'https://huggingface.co/spaces/adilsiraju/Medical-Case-Classifier',
+    githubUrl: 'https://github.com/adilsiraju/medical_document_classifier',
     featured: false,
-    story: 'Technology meets healthcare to create a future where prevention trumps cure.'
+    story: 'Curated a specialty-balanced dataset, fine-tuned Bio_ClinicalBERT, and shipped a real-time classifier used by practitioners exploring clinical NLP.'
   }
 ]
 

@@ -26,21 +26,21 @@ const storySteps: StoryStep[] = [
     id: 'identity',
     title: "Meet the Engineer",
     subtitle: "Mohammed Adil Siraju",
-    description: "Aspiring AI & ML Engineer with expertise in Python, DevOps, and sustainable innovation.",
+    description: "AI & ML Engineer leading rapid CV builds, RAG agents, and production-ready pipelines.",
     backgroundClass: "bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900",
     icon: <Brain className="w-8 h-8 text-emerald-400" />
   },  {
     id: 'mission',
     title: "The Innovation Journey",
     subtitle: "From Internships to Impact",
-    description: "Transforming ideas into reality through AI/ML, DevOps, and sustainable technology solutions.",
+    description: "Shipping YOLO coins detection, Supabase-backed RAG workflows, and human-centered AI experiences.",
     backgroundClass: "bg-gradient-to-br from-orange-900 via-red-900 to-pink-900",
     icon: <Code2 className="w-8 h-8 text-orange-400" />
   },  {
     id: 'invitation',
     title: "Ready to Collaborate?",
     subtitle: "Open to Full-Time Opportunities",
-    description: "Explore my journey from internships at Accenture, Wells Fargo, Deloitte to building EcoVest.",
+    description: "Let’s talk about bringing YOLO vision systems, RAG agents, or enterprise AI accelerators to life.",
     backgroundClass: "bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900",
     icon: <Zap className="w-8 h-8 text-violet-400" />
   }
