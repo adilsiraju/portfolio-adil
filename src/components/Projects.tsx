@@ -51,7 +51,7 @@ const projects: Project[] = [
     icon: <Zap className="w-8 h-8" />,
     color: 'from-orange-500 to-amber-600',
     backgroundGradient: 'from-orange-900/20 to-amber-900/20',
-    demoUrl: '',
+    demoUrl: 'https://huggingface.co/spaces/adilsiraju/CoinsCounter_UAE',
     githubUrl: ''
   },
   {
